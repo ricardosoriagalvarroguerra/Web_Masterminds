@@ -51,7 +51,7 @@ tocar los componentes.
 Ejemplos frecuentes:
 - Teléfono / email / ubicación → `contactRows`.
 - Servicios (título, descripción, "qué entregamos", "ideal para") → `services`.
-- Métricas 44 / 16 / 350+ / 18 → `metrics` y `heroStats`.
+- Métricas verificadas 40+ / 16 / 100+ / 3 → `metrics` y `heroStats`.
 - Eventos, Sectores, Insights, Equipo → sus arreglos respectivos.
 
 ## Agregar las fotos de los eventos

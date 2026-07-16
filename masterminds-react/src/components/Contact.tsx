@@ -1,3 +1,4 @@
+import type { FormEvent } from 'react'
 import { useLang } from '../i18n/LanguageContext'
 import { Reveal } from './Reveal'
 
@@ -6,6 +7,27 @@ const LINKEDIN = 'https://bo.linkedin.com/company/mastermindsbol'
 
 export function Contact() {
   const { t } = useLang()
+
+  const prepareEmail = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const name = String(data.get('name') ?? '').trim()
+    const company = String(data.get('company') ?? '').trim()
+    const email = String(data.get('email') ?? '').trim()
+    const message = String(data.get('message') ?? '').trim()
+    const subject = company ? `Consulta MasterMinds · ${company}` : 'Consulta MasterMinds'
+    const body = [
+      `${t.fName}: ${name}`,
+      `${t.fCompany}: ${company || '—'}`,
+      `${t.fEmail}: ${email}`,
+      '',
+      `${t.fMsg}:`,
+      message,
+    ].join('\n')
+
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
+
   return (
     <section id="contacto" className="section section--paper2">
       <div className="container contact__grid">
@@ -32,24 +54,24 @@ export function Contact() {
         </Reveal>
 
         <Reveal className="form" delay={100}>
-          <form onSubmit={(e) => e.preventDefault()} style={{ display: 'contents' }}>
+          <form onSubmit={prepareEmail} style={{ display: 'contents' }}>
             <div className="form__row">
               <label className="field">
                 <span>{t.fName}</span>
-                <input type="text" autoComplete="name" />
+                <input name="name" type="text" autoComplete="name" required />
               </label>
               <label className="field">
                 <span>{t.fCompany}</span>
-                <input type="text" autoComplete="organization" />
+                <input name="company" type="text" autoComplete="organization" />
               </label>
             </div>
             <label className="field">
               <span>{t.fEmail}</span>
-              <input type="email" autoComplete="email" />
+              <input name="email" type="email" autoComplete="email" required />
             </label>
             <label className="field">
               <span>{t.fMsg}</span>
-              <textarea rows={4} />
+              <textarea name="message" rows={4} required />
             </label>
             <div className="form__actions">
               <button type="submit" className="btn btn--primary">{t.fSubmit}</button>
