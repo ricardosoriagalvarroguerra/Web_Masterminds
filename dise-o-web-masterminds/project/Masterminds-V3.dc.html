@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#f3efe6;color:#122a38;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:#137a7d;text-decoration:none}
+  a:hover{color:#0e2230}
+  ::selection{background:#cfe9ea;color:#0e2230}
+  @keyframes v3marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes v3rule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden;position:relative">
+
+<header style="position:sticky;top:0;z-index:60;background:rgba(243,239,230,.85);backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid #d8d0c0">
+  <nav style="max-width:1200px;margin:0 auto;padding:18px 34px;display:flex;align-items:center;gap:34px">
+    <a href="#top" style="display:flex;align-items:center;gap:13px;color:#0e2230">
+      <img src="uploads/mastermindsbol_logo.jpeg" alt="Masterminds" style="width:38px;height:38px;border-radius:9px;display:block"/>
+      <span style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;letter-spacing:-.01em">Masterminds</span>
+    </a>
+    <div style="display:none;margin-left:auto;gap:30px;font-size:14.5px" data-nav>
+      <a href="#enfoque" style="color:#4a5f68" style-hover="color:#0e2230">Enfoque</a>
+      <a href="#servicios" style="color:#4a5f68" style-hover="color:#0e2230">Servicios</a>
+      <a href="#metodo" style="color:#4a5f68" style-hover="color:#0e2230">Método</a>
+      <a href="#equipo" style="color:#4a5f68" style-hover="color:#0e2230">Equipo</a>
+    </div>
+    <a href="#contacto" style="margin-left:auto;font-size:14px;font-weight:500;color:#f3efe6;background:#0e2230;padding:10px 20px;border-radius:6px" style-hover="background:#137a7d">Agendar reunión</a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section style="max-width:1200px;margin:0 auto;padding:26px 34px 0">
+    <div data-reveal style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #d8d0c0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#7c6f5b">
+      <span>La Paz · Santa Cruz</span><span style="margin-left:auto">Consultoría económica y financiera</span><span>Est. Bolivia</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.25fr .75fr;gap:52px;padding:64px 0 40px;align-items:end">
+      <div data-reveal>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#137a7d;margin-bottom:26px">Análisis económico · coyuntural · político</div>
+        <h1 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(46px,6.6vw,96px);line-height:1;letter-spacing:-.02em;color:#0e2230;text-wrap:balance">Leemos la economía boliviana — y la <em style="font-style:italic;color:#137a7d">traducimos</em> para el mundo.</h1>
+      </div>
+      <div data-reveal style="padding-bottom:8px">
+        <p style="font-size:18px;line-height:1.68;color:#3f5560">Acompañamos a inversores, empresas líderes e instituciones con análisis de alto rigor para decidir con certeza en el entorno más difícil de leer de la región.</p>
+        <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#contacto" style="font-size:15px;font-weight:500;color:#f3efe6;background:#0e2230;padding:13px 24px;border-radius:6px" style-hover="background:#137a7d">Agendar una consulta</a>
+          <a href="#servicios" style="font-size:15px;font-weight:500;color:#0e2230;border:1px solid #c7bda9;padding:13px 24px;border-radius:6px" style-hover="border-color:#137a7d">Ver servicios</a>
+        </div>
+      </div>
+    </div>
+    <div data-reveal style="position:relative;aspect-ratio:21/8;border-radius:14px;overflow:hidden;border:1px solid #d8d0c0;background:#e8e2d4;margin-bottom:8px">
+      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="v3_hero" shape="rect" placeholder="Suelta una foto en alta calidad (equipo, evento u oficina)" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #d8d0c0;border-bottom:1px solid #d8d0c0">
+      <sc-for list="{{ stats }}" as="m" hint-placeholder-count="4">
+        <div data-reveal style="padding:26px 8px 26px 0;border-right:1px solid #d8d0c0">
+          <div style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(34px,3.8vw,50px);line-height:1;color:#0e2230"><span>{{ m.disp }}</span>{{ m.suf }}</div>
+          <div style="margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#7c6f5b">{{ m.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- MARQUEE / TRUST -->
+  <section style="padding:30px 0;border-bottom:1px solid #d8d0c0;overflow:hidden">
+    <div style="display:flex;width:max-content;animation:v3marq 40s linear infinite">
+      <sc-for list="{{ trust }}" as="t" hint-placeholder-count="12"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.05em;color:#8a7d68;padding:0 28px;display:flex;align-items:center;gap:28px">{{ t }}<span style="width:5px;height:5px;border-radius:50%;background:#5fc7c9"></span></span></sc-for>
+    </div>
+  </section>
+
+  <!-- ENFOQUE -->
+  <section id="enfoque" style="max-width:1200px;margin:0 auto;padding:88px 34px">
+    <div data-reveal style="display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:baseline;margin-bottom:52px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#137a7d">01 — El enfoque</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,4vw,54px);line-height:1.06;letter-spacing:-.015em;color:#0e2230;text-wrap:balance">Tres miradas que trabajan juntas para explicar no solo qué pasa, sino qué hacer.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:44px">
+      <sc-for list="{{ lentes }}" as="l" hint-placeholder-count="3">
+        <div data-reveal>
+          <div style="height:3px;width:46px;background:#5fc7c9;transform-origin:left;animation:v3rule .8s cubic-bezier(.4,.7,.3,1) forwards;margin-bottom:22px"></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#137a7d;margin-bottom:12px">{{ l.n }}</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:28px;color:#0e2230;margin-bottom:12px">{{ l.k }}</h3>
+          <p style="font-size:15.5px;line-height:1.68;color:#4a5f68">{{ l.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section style="background:#0e2230;color:#f3efe6;overflow:hidden">
+    <div data-reveal style="max-width:1000px;margin:0 auto;padding:104px 34px;text-align:center">
+      <div style="font-family:'Newsreader',serif;font-size:90px;line-height:.3;color:#5fc7c9;height:44px">&ldquo;</div>
+      <p style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(28px,3.8vw,50px);line-height:1.2;letter-spacing:-.01em;color:#fff;text-wrap:balance">Hacemos más exitosos a nuestros clientes a través de métodos ingeniosos de gestión.</p>
+      <div style="margin-top:30px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fd0d2">Martin Rapp · Director Ejecutivo</div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" style="max-width:1200px;margin:0 auto;padding:88px 34px">
+    <div data-reveal style="display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:baseline;margin-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#137a7d">02 — Servicios</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,4vw,54px);line-height:1.06;letter-spacing:-.015em;color:#0e2230">Análisis que se traduce en decisiones.</h2>
+    </div>
+    <div style="border-top:1px solid #d8d0c0">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div data-reveal data-svc style="display:grid;grid-template-columns:auto 1fr 2fr;gap:32px;align-items:baseline;padding:28px 4px;border-bottom:1px solid #d8d0c0;transition:padding-left .3s ease" style-hover="padding-left:14px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#5fc7c9">{{ s.n }}</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:24px;line-height:1.12;color:#0e2230">{{ s.title }}</h3>
+          <p style="font-size:15px;line-height:1.62;color:#4a5f68">{{ s.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" style="background:#ece5d7;border-top:1px solid #dcd4c4;border-bottom:1px solid #dcd4c4">
+    <div style="max-width:1200px;margin:0 auto;padding:88px 34px">
+      <div data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#137a7d;margin-bottom:40px">03 — El equipo</div>
+      <div data-reveal style="display:grid;grid-template-columns:.72fr 1.28fr;gap:52px;align-items:center">
+        <div style="position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#0e2230">
+          <img src="uploads/MartinRapp_bw.png" alt="Martin Rapp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:34% 4%;filter:grayscale(1) contrast(1.04)"/>
+        </div>
+        <div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1;letter-spacing:-.015em;color:#0e2230">Martin Rapp</h3>
+          <div style="margin:14px 0 22px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#137a7d">Director Ejecutivo & Fundador</div>
+          <p style="font-family:'Newsreader',serif;font-weight:300;font-size:21px;line-height:1.5;color:#2c4049;max-width:34em">Economista de formación alemana con más de 40 años en cargos ejecutivos y 18 en directorios. Ha hecho más exitosos a sus clientes con métodos de gestión en 16 países.</p>
+          <p style="margin-top:18px;font-size:15.5px;line-height:1.7;color:#4a5f68;max-width:34em">Lidera el Programa de Liderazgo de CAINCO y dirigió el Forum Líder de Renaissance Executive Forums en Santa Cruz. Subgerente general y director de bancos durante 14 años.</p>
+          <a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" style="margin-top:24px;display:inline-block;font-size:14.5px;font-weight:500;color:#137a7d" style-hover="color:#0e2230">LinkedIn →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METODO -->
+  <section id="metodo" style="max-width:1200px;margin:0 auto;padding:88px 34px">
+    <div data-reveal style="display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:baseline;margin-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#137a7d">04 — El método</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,4vw,54px);line-height:1.06;letter-spacing:-.015em;color:#0e2230">Un proceso claro, de la pregunta a la acción.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
+      <sc-for list="{{ method }}" as="step" hint-placeholder-count="4">
+        <div data-reveal style="border-top:1px solid #d8d0c0;padding-top:20px">
+          <div style="font-family:'Newsreader',serif;font-size:44px;color:#cbbfa8;line-height:1;margin-bottom:14px">{{ step.n }}</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:21px;color:#0e2230;margin-bottom:10px">{{ step.title }}</h3>
+          <p style="font-size:14.5px;line-height:1.62;color:#4a5f68">{{ step.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="background:#0e2230;color:#f3efe6">
+    <div style="max-width:1200px;margin:0 auto;padding:96px 34px">
+      <div data-reveal style="display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5fc7c9;margin-bottom:20px">Contacto</div>
+          <h2 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(36px,5vw,68px);line-height:1;letter-spacing:-.02em;color:#fff;text-wrap:balance">Hablemos de su próxima decisión.</h2>
+          <p style="margin-top:24px;font-size:18px;line-height:1.66;color:#a9c0c7;max-width:30em">Cuéntenos su desafío. Preparamos una primera conversación sin costo para entender cómo podemos ayudar.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;padding-top:8px">
+          <sc-for list="{{ contactRows }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.14)">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7fa0a8;width:88px;flex:none">{{ r.k }}</span>
+              <span style="font-size:16.5px;color:#eaf3f4">{{ r.v }}</span>
+            </div>
+          </sc-for>
+          <a href="mailto:contacto@masterminds.bo" style="margin-top:26px;font-size:15px;font-weight:500;color:#0e2230;background:#5fc7c9;padding:14px 26px;border-radius:6px;text-align:center" style-hover="background:#fff">Escribir a Masterminds →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0a1a25;color:#8fabb4">
+    <div style="max-width:1200px;margin:0 auto;padding:44px 34px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+      <div style="display:flex;align-items:center;gap:12px;color:#fff">
+        <img src="uploads/mastermindsbol_logo.jpeg" alt="Masterminds" style="width:34px;height:34px;border-radius:8px"/>
+        <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500">Masterminds</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6b8790">© 2026 Masterminds S.R.L. · Bolivia</div>
+    </div>
+  </footer>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { p: 0 };
+  startCount(){ const dur=1400,t0=performance.now(); const tick=(now)=>{ const p=Math.min(1,(now-t0)/dur); this.setState({p:1-Math.pow(1-p,3)}); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+  renderVals() {
+    const P=this.state.p;
+    return {
+      stats: [
+        {v:44,suf:'',label:'Años de experiencia'},
+        {v:16,suf:'',label:'Países y geografías'},
+        {v:350,suf:'+',label:'Líderes asesorados'},
+        {v:18,suf:'',label:'Años en directorios'}
+      ].map(m=>({...m,disp:m.v})),
+      trust: ['CAINCO','AMCHAM','BRAQ CorpAffairs','GCF Task Force','Renaissance Executive Forums','CAINCO','AMCHAM','BRAQ CorpAffairs','GCF Task Force','Renaissance Executive Forums'],
+      lentes: [
+        {n:'01',k:'Económico',d:'La estructura: inflación, crecimiento y desempeño sectorial que definen el terreno de juego.'},
+        {n:'02',k:'Coyuntural',d:'El momento: qué cambia hoy y por qué le importa directamente a su negocio.'},
+        {n:'03',k:'Político',d:'El poder: escenarios electorales, riesgo regulatorio y transiciones institucionales.'}
+      ],
+      services: [
+        {n:'01',title:'Análisis Económico',desc:'Lectura macroeconómica y sectorial, proyecciones y escenarios que convierten datos complejos en decisiones claras.'},
+        {n:'02',title:'Análisis Coyuntural',desc:'Interpretación en tiempo real del entorno económico y su impacto directo sobre su negocio e inversiones.'},
+        {n:'03',title:'Análisis Político',desc:'Evaluación de riesgo político, escenarios electorales y regulatorios para anticipar cambios y proteger su capital.'},
+        {n:'04',title:'Asesoría Empresarial',desc:'Acompañamiento estratégico a directorios y equipos ejecutivos con métodos de gestión probados en 16 países.'},
+        {n:'05',title:'Estudios de Factibilidad',desc:'Evaluación económica y financiera de proyectos e inversiones, del diagnóstico a la recomendación accionable.'},
+        {n:'06',title:'Programas de Liderazgo',desc:'Formación ejecutiva y foros de liderazgo que fortalecen la capacidad de decisión de sus líderes.'}
+      ],
+      method: [
+        {n:'01',title:'Diagnóstico',desc:'Entendemos su objetivo, su exposición y las preguntas que realmente importan.'},
+        {n:'02',title:'Análisis',desc:'Procesamos datos económicos, coyunturales y políticos con marcos propios.'},
+        {n:'03',title:'Estrategia',desc:'Traducimos el análisis en escenarios y recomendaciones accionables.'},
+        {n:'04',title:'Acompañamiento',desc:'Acompañamos la ejecución y ajustamos ante cada cambio del entorno.'}
+      ],
+      contactRows: [
+        {k:'Contacto',v:'Martin Rapp · Director'},
+        {k:'Email',v:'contacto@masterminds.bo'},
+        {k:'Ubicación',v:'La Paz · Santa Cruz'},
+        {k:'LinkedIn',v:'/company/mastermindsbol'}
+      ]
+    };
+  }
+  componentDidMount(){ this.runReveal(); this.fixNav(); this.startCount(); }
+  fixNav(){ const n=document.querySelector('[data-nav]'); if(n) n.style.display='flex'; }
+  runReveal(){
+    if(this._setup) return;
+    const nodes=Array.from(document.querySelectorAll('[data-reveal]'));
+    if(!nodes.length){ this._r=(this._r||0)+1; if(this._r<20) setTimeout(()=>this.runReveal(),120); return; }
+    this._setup=true;
+    const reveal=(n)=>{ n.style.opacity='1'; n.style.transform='none'; };
+    nodes.forEach(n=>{ n.style.opacity='0'; n.style.transform='translateY(24px)'; n.style.transition='opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)'; });
+    const inView=(n)=>{ const r=n.getBoundingClientRect(); const h=window.innerHeight||800; return r.top<h*0.9 && r.bottom>0; };
+    const pass=()=>nodes.forEach(n=>{ if(n.style.opacity!=='1' && inView(n)) reveal(n); });
+    try{ const io=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); },{threshold:.12}); nodes.forEach(n=>io.observe(n)); }catch(e){}
+    pass(); window.addEventListener('scroll',pass,{passive:true}); window.addEventListener('resize',pass,{passive:true});
+    setTimeout(pass,250); setTimeout(()=>nodes.forEach(reveal),700);
+    const counters=Array.from(document.querySelectorAll('[data-count]'));
+    setTimeout(()=>counters.forEach(c=>{ if(!c._done){ c._done=true; this.animateCount(c); } }),750);
+  }
+  animateCount(el){ const target=parseFloat(el.getAttribute('data-count'))||0; const dur=1400,t0=performance.now(); const tick=(now)=>{ const p=Math.min(1,(now-t0)/dur); const e=1-Math.pow(1-p,3); el.textContent=Math.round(target*e); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+}
+</script>
+</body>
+</html>

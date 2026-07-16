@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#faf9f6;color:#16262e;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:#1c8f92;text-decoration:none}
+  a:hover{color:#0e2b3c}
+  ::selection{background:#bfe9ea;color:#0e2b3c}
+  @keyframes mmglow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.06)}}
+  @keyframes mmfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes mmpop{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+  @keyframes mmword{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes mmdraw{to{stroke-dashoffset:0}}
+  @keyframes mmpulse{0%,100%{opacity:1;r:6}50%{opacity:.35;r:9}}
+  @keyframes mmrise{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes mmmarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes mmspin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+<div id="mmprogress" style="position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#1c8f92,#4bbfc2);z-index:60;transition:width .1s linear"></div>
+
+<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(12px);background:rgba(250,249,246,0.82);border-bottom:1px solid #e7e4dd">
+  <nav style="max-width:1220px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:32px">
+    <a href="#top" style="display:flex;align-items:center;gap:12px;color:#0e2b3c">
+      <img src="uploads/mastermindsbol_logo.jpeg" alt="Masterminds" style="width:38px;height:38px;border-radius:9px;display:block"/>
+      <span style="font-family:'Spectral',serif;font-size:21px;font-weight:600;letter-spacing:-.01em">Masterminds</span>
+    </a>
+    <div style="display:flex;gap:28px;margin-left:auto;font-size:14.5px;font-weight:400">
+      <sc-for list="{{ c.nav }}" as="link" hint-placeholder-count="6">
+        <a href="{{ link.href }}" style="color:#3d4d54;padding:6px 0;border-bottom:2px solid transparent;transition:color .2s ease,border-color .2s ease" style-hover="color:#0e2b3c;border-bottom-color:#4bbfc2">{{ link.label }}</a>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <button onClick="{{ toggleLang }}" style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.06em;color:#0e2b3c;background:none;border:1px solid #cfd6d3;border-radius:999px;padding:7px 13px;cursor:pointer">{{ otherLang }}</button>
+      <a href="#contacto" style="font-size:14px;font-weight:500;color:#fff;background:#0e2b3c;padding:10px 18px;border-radius:999px;transition:background .25s ease" style-hover="background:#16465f">{{ c.cta_meeting }}</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section style="max-width:1220px;margin:0 auto;padding:78px 32px 46px;display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center">
+    <div data-reveal>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.hero_kicker }}</span></div>
+      <h1 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(40px,4.8vw,66px);line-height:1.01;letter-spacing:-.015em;color:#0e2b3c;text-wrap:balance">{{ c.hero_pre }} {{ rotWordEl }}<br>{{ c.hero_post }}</h1>
+      <p style="margin-top:24px;font-size:18px;line-height:1.6;color:#42525a;max-width:32em">{{ c.hero_sub }}</p>
+      <div style="margin-top:34px;display:flex;flex-wrap:wrap;gap:14px">
+        <a href="#contacto" style="font-size:15px;font-weight:500;color:#fff;background:#0e2b3c;padding:14px 26px;border-radius:999px;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-2px);box-shadow:0 16px 30px -16px rgba(14,43,60,.75)">{{ c.hero_cta1 }}</a>
+        <a href="#servicios" style="font-size:15px;font-weight:500;color:#0e2b3c;background:none;border:1px solid #cfd6d3;padding:14px 26px;border-radius:999px;transition:border-color .25s ease,background .25s ease" style-hover="border-color:#4bbfc2;background:#eef7f7">{{ c.hero_cta2 }}</a>
+      </div>
+      <div style="margin-top:42px;display:flex;gap:40px;flex-wrap:wrap">
+        <sc-for list="{{ heroStats }}" as="m" hint-placeholder-count="3">
+          <div>
+            <div style="font-family:'Spectral',serif;font-weight:400;font-size:32px;color:#0e2b3c;line-height:1"><span data-count="{{ m.v }}">0</span>{{ m.suf }}</div>
+            <div style="margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#7a8a90">{{ m.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div data-reveal style="position:relative;aspect-ratio:1/1;border-radius:24px;background:radial-gradient(130% 120% at 72% 8%,#1a5470 0%,#0d2636 72%);overflow:hidden;box-shadow:0 30px 70px -32px rgba(14,43,60,.6)">
+      <div style="position:absolute;top:26px;left:30px;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#84b7c3">{{ c.hero_chart_label }}</div>
+      <div style="position:absolute;top:24px;right:28px;z-index:2;width:34px;height:34px;border:1px solid rgba(75,191,194,.4);border-top-color:#7fe3e5;border-radius:50%;animation:mmspin 3.4s linear infinite"></div>
+      <svg viewBox="0 0 400 300" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:80%">
+        <defs><linearGradient id="mmg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4bbfc2" stop-opacity=".38"/><stop offset="1" stop-color="#4bbfc2" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,.08)"/>
+        <line x1="0" y1="160" x2="400" y2="160" stroke="rgba(255,255,255,.08)"/>
+        <line x1="0" y1="230" x2="400" y2="230" stroke="rgba(255,255,255,.08)"/>
+        <path d="M20,235 L70,205 L120,215 L170,155 L220,170 L270,115 L320,130 L380,58 L380,300 L20,300 Z" fill="url(#mmg)"/>
+        <path d="M20,235 L70,205 L120,215 L170,155 L220,170 L270,115 L320,130 L380,58" fill="none" stroke="#5fd0d2" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:640;stroke-dashoffset:640;animation:mmdraw 2.4s cubic-bezier(.4,.7,.3,1) .3s forwards"/>
+        <circle cx="380" cy="58" r="6" fill="#7fe3e5" style="animation:mmpulse 2s ease-in-out 2.6s infinite"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div style="background:#0e2b3c;overflow:hidden;border-top:1px solid #16405a">
+    <div style="display:flex;width:max-content;animation:mmmarquee 36s linear infinite">
+      <div style="display:flex;align-items:center;padding:13px 0">
+        <sc-for list="{{ c.ticker }}" as="t" hint-placeholder-count="10"><span style="display:flex;align-items:center;gap:14px;padding:0 26px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:#bfe0e4"><span style="width:6px;height:6px;border-radius:50%;background:#4bbfc2;flex:none"></span>{{ t }}</span></sc-for>
+      </div>
+      <div style="display:flex;align-items:center;padding:13px 0" aria-hidden="true">
+        <sc-for list="{{ c.ticker }}" as="t" hint-placeholder-count="10"><span style="display:flex;align-items:center;gap:14px;padding:0 26px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:#bfe0e4"><span style="width:6px;height:6px;border-radius:50%;background:#4bbfc2;flex:none"></span>{{ t }}</span></sc-for>
+      </div>
+    </div>
+  </div>
+  <!-- CH01 CONTEXT -->
+  <section style="background:#0e2b3c;color:#eaf3f4;overflow:hidden">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px;display:grid;grid-template-columns:1fr .92fr;gap:64px;align-items:center">
+      <div data-reveal>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#4bbfc2;margin-bottom:20px">{{ c.n_ch1 }}</div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.7vw,52px);line-height:1.06;letter-spacing:-.015em;color:#fff;text-wrap:balance">{{ c.n_stmt1 }}</h2>
+        <p style="margin-top:24px;font-size:17px;line-height:1.72;color:#a9c2c9;max-width:32em">{{ c.n_stmt1_sub }}</p>
+      </div>
+      <div data-reveal style="position:relative;aspect-ratio:5/4;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);overflow:hidden">
+        <div style="position:absolute;top:20px;left:24px;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#7fa9b5">VOLATILIDAD DEL ENTORNO</div>
+        <svg viewBox="0 0 400 300" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">
+          <defs><linearGradient id="mmv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4bbfc2" stop-opacity=".26"/><stop offset="1" stop-color="#4bbfc2" stop-opacity="0"/></linearGradient></defs>
+          <path d="M10,180 L45,120 L80,205 L115,90 L150,225 L185,140 L220,240 L255,110 L290,200 L325,70 L365,160 L365,300 L10,300 Z" fill="url(#mmv)"/>
+          <path d="M10,180 L45,120 L80,205 L115,90 L150,225 L185,140 L220,240 L255,110 L290,200 L325,70 L365,160" fill="none" stroke="#5fd0d2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:1100;stroke-dashoffset:1100;animation:mmdraw 3s cubic-bezier(.4,.7,.3,1) .3s forwards"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+  <!-- NOSOTROS -->
+  <section id="nosotros" style="max-width:1220px;margin:0 auto;padding:100px 32px">
+    <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center">
+      <div data-reveal style="position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;border:1px solid #e3e0d8;background:#eceae3">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="about_photo" shape="rect" placeholder="Suelta una foto (equipo, oficina o Martin en alta calidad)" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+      </div>
+      <div data-reveal>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.about_kicker }}</span></div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(28px,3.2vw,42px);line-height:1.1;letter-spacing:-.015em;color:#0e2b3c">{{ c.about_title }}</h2>
+        <p style="margin-top:24px;font-size:17px;line-height:1.68;color:#42525a">{{ c.about_p1 }}</p>
+        <p style="margin-top:18px;font-size:17px;line-height:1.68;color:#42525a">{{ c.about_p2 }}</p>
+        <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ c.about_creds }}" as="cr" hint-placeholder-count="5"><span style="font-size:13px;color:#1c8f92;background:#eaf3f3;border:1px solid #d3e6e5;padding:8px 14px;border-radius:999px">{{ cr }}</span></sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CH02 PILLARS -->
+  <section style="background:#f4f2ec;border-top:1px solid #ebe8e1;border-bottom:1px solid #ebe8e1">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px">
+      <div data-reveal style="max-width:40em;margin-bottom:52px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#1c8f92;margin-bottom:18px">{{ c.n_ch2 }}</div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-.015em;color:#0e2b3c;text-wrap:balance">{{ c.n_stmt2 }}</h2>
+        <p style="margin-top:20px;font-size:17px;line-height:1.66;color:#54646b">{{ c.n_stmt2_sub }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e2ded5;border:1px solid #e2ded5;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ c.pillars }}" as="pl" hint-placeholder-count="3">
+          <div data-reveal style="background:#faf9f6;padding:36px 30px 40px">
+            <div style="height:3px;width:44px;background:#4bbfc2;transform-origin:left;animation:mmrise .8s cubic-bezier(.4,.7,.3,1) forwards;margin-bottom:22px"></div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#1c8f92;margin-bottom:12px">{{ pl.n }}</div>
+            <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:24px;color:#0e2b3c;margin-bottom:10px">{{ pl.k }}</h3>
+            <p style="font-size:15px;line-height:1.62;color:#54646b">{{ pl.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  <!-- METRICS -->
+  <section style="background:#0e2b3c;color:#eaf3f4">
+    <div style="max-width:1220px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+      <sc-for list="{{ c.metrics }}" as="m" hint-placeholder-count="4">
+        <div data-reveal style="border-left:1px solid rgba(255,255,255,.14);padding-left:22px">
+          <div style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(40px,4.4vw,58px);line-height:1;color:#fff"><span data-count="{{ m.v }}">0</span>{{ m.suf }}</div>
+          <div style="margin-top:14px;font-size:14.5px;color:#9fc0c8;line-height:1.4">{{ m.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <!-- SERVICIOS -->
+  <section id="servicios" style="max-width:1220px;margin:0 auto;padding:100px 32px 30px">
+    <div data-reveal style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:48px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.serv_kicker }}</span></div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c;max-width:16em">{{ c.serv_title }}</h2>
+      </div>
+      <p style="font-size:16px;color:#54646b;max-width:24em">{{ c.serv_sub }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e7e4dd;border:1px solid #e7e4dd;border-radius:16px;overflow:hidden">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div data-reveal data-svc onClick="{{ s.open }}" style="background:#faf9f6;padding:34px 30px 32px;min-height:238px;cursor:pointer;transition:background .3s ease" style-hover="background:#ffffff">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4bbfc2;margin-bottom:22px">{{ s.n }}</div>
+          <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:22px;color:#0e2b3c;margin-bottom:12px">{{ s.title }}</h3>
+          <p style="font-size:15px;line-height:1.62;color:#54646b">{{ s.desc }}</p>
+          <div style="margin-top:18px;font-size:13px;font-weight:500;color:#1c8f92">{{ c.see_more }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <!-- SECTORES -->
+  <section id="sectores" style="max-width:1220px;margin:0 auto;padding:100px 32px">
+    <div data-reveal style="margin-bottom:44px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.sect_kicker }}</span></div>
+      <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c;max-width:18em">{{ c.sect_title }}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+      <sc-for list="{{ c.sectors }}" as="x" hint-placeholder-count="6">
+        <div data-reveal style="display:flex;align-items:center;gap:16px;padding:24px 24px;border:1px solid #e7e4dd;border-radius:12px;background:#fff;transition:border-color .3s ease,transform .3s ease" style-hover="border-color:#4bbfc2;transform:translateY(-3px)">
+          <span style="width:9px;height:9px;border-radius:50%;background:#4bbfc2;flex:none"></span>
+          <span style="font-size:16px;font-weight:500;color:#243840">{{ x }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <!-- METODOLOGIA -->
+  <section id="metodologia" style="background:#f4f2ec;border-top:1px solid #ebe8e1;border-bottom:1px solid #ebe8e1">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px">
+      <div data-reveal style="margin-bottom:52px;max-width:36em">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.method_kicker }}</span></div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c">{{ c.method_title }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
+        <sc-for list="{{ c.method }}" as="step" hint-placeholder-count="4">
+          <div data-reveal>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4bbfc2;margin-bottom:16px">{{ step.n }}</div>
+            <div style="height:1px;background:#d7d3c8;margin-bottom:20px"></div>
+            <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:20px;color:#0e2b3c;margin-bottom:10px">{{ step.title }}</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#5a6a70">{{ step.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  <!-- CASOS -->
+  <sc-if value="{{ showCases }}" hint-placeholder-val="{{ true }}">
+  <section id="casos" style="max-width:1220px;margin:0 auto;padding:100px 32px">
+    <div data-reveal style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:44px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.cases_kicker }}</span></div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c">{{ c.cases_title }}</h2>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#9aa39f">{{ c.cases_note }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <sc-for list="{{ cases }}" as="cs" hint-placeholder-count="3">
+        <div data-reveal onClick="{{ cs.open }}" style="border:1px solid #e7e4dd;border-radius:16px;overflow:hidden;background:#fff;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 44px -30px rgba(14,43,60,.5)">
+          <div style="aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#eceae3 0 12px,#f4f2ec 12px 24px);display:flex;align-items:flex-end;padding:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#a7afab">[ imagen ]</span></div>
+          <div style="padding:24px 24px 28px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4bbfc2;margin-bottom:12px">{{ cs.tag }}</div>
+            <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:20px;line-height:1.2;color:#0e2b3c;margin-bottom:10px">{{ cs.title }}</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#5a6a70">{{ cs.desc }}</p>
+            <div style="margin-top:16px;font-size:13px;font-weight:500;color:#1c8f92">{{ c.case_more }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+  <!-- QUOTE -->
+  <section style="background:#0e2b3c;color:#fff;overflow:hidden">
+    <div style="max-width:1000px;margin:0 auto;padding:104px 32px;text-align:center">
+      <div data-reveal>
+        <div style="font-family:'Spectral',serif;font-size:80px;line-height:.4;color:#4bbfc2;height:40px">&ldquo;</div>
+        <p style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(26px,3.3vw,42px);line-height:1.26;letter-spacing:-.01em;color:#fff;text-wrap:balance">{{ c.n_quote }}</p>
+        <div style="margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fd2d4">{{ c.n_quote_by }}</div>
+      </div>
+    </div>
+  </section>
+  <!-- EVENTOS -->
+  <section id="eventos" style="background:#f4f2ec;border-top:1px solid #ebe8e1;border-bottom:1px solid #ebe8e1">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px">
+      <div data-reveal style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:44px">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.events_kicker }}</span></div>
+          <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c">{{ c.events_title }}</h2>
+        </div>
+        <p style="font-size:15px;color:#54646b;max-width:24em">{{ c.events_sub }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ c.events }}" as="ev" hint-placeholder-count="6">
+          <div data-reveal style="border:1px solid #e2ded5;border-radius:16px;overflow:hidden;background:#fff;transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 22px 44px -30px rgba(14,43,60,.45)">
+            <div style="position:relative;aspect-ratio:3/2;background:repeating-linear-gradient(135deg,#eceae3 0 12px,#f4f2ec 12px 24px)">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ ev.slot }}" shape="rect" placeholder="{{ c.events_ph }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+            </div>
+            <div style="padding:20px 22px 24px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4bbfc2;margin-bottom:10px">{{ ev.meta }}</div>
+              <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:18px;line-height:1.25;color:#0e2b3c">{{ ev.title }}</h3>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  <!-- EQUIPO -->
+  <section id="equipo" style="background:#0e2b3c;color:#eaf3f4">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px">
+      <div data-reveal style="margin-bottom:52px;max-width:34em">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#4bbfc2;margin-bottom:16px">{{ c.team_kicker }}</div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#fff">{{ c.team_title }}</h2>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:.78fr 1.22fr;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;margin-bottom:28px">
+        <div style="position:relative;min-height:400px;background:radial-gradient(120% 100% at 50% 0%,#1a5470 0%,#0d2636 74%);overflow:hidden">
+          <img src="uploads/MartinRapp_bw.png" alt="Martin Rapp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:34% 4%;filter:grayscale(1) contrast(1.04);transition:transform .6s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.04)"/>
+        </div>
+        <div style="padding:46px 48px;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:#4bbfc2;margin-bottom:14px">{{ teamLead.role }}</div>
+          <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.05;color:#fff;margin-bottom:14px">{{ teamLead.name }}</h3>
+          <p style="font-size:15.5px;line-height:1.68;color:#a9c2c9;max-width:36em">{{ teamLead.bio }}</p>
+          <a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" style="margin-top:24px;font-size:13.5px;font-weight:500;color:#7fe3e5" style-hover="color:#fff">LinkedIn →</a>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:28px">
+        <sc-for list="{{ teamRest }}" as="p" hint-placeholder-count="2">
+          <div data-reveal style="display:flex;gap:22px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:26px;transition:border-color .3s ease" style-hover="border-color:rgba(75,191,194,.45)">
+            <div style="width:100px;height:100px;border-radius:14px;flex:none;background:radial-gradient(120% 100% at 50% 0%,#1a5470,#12313f);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6f95a0">[ foto ]</div>
+            <div>
+              <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:20px;color:#fff">{{ p.name }}</h3>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;color:#4bbfc2;margin:7px 0 10px">{{ p.role }}</div>
+              <p style="font-size:13.5px;line-height:1.56;color:#a9c2c9">{{ p.bio }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  <!-- INSIGHTS -->
+  <sc-if value="{{ showInsights }}" hint-placeholder-val="{{ true }}">
+  <section id="insights" style="max-width:1220px;margin:0 auto;padding:100px 32px">
+    <div data-reveal style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:44px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.ins_kicker }}</span></div>
+        <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,3.3vw,44px);line-height:1.08;letter-spacing:-.015em;color:#0e2b3c">{{ c.ins_title }}</h2>
+      </div>
+      <a href="#contacto" style="font-size:14.5px;font-weight:500;color:#1c8f92">{{ c.ins_link }}</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e7e4dd;border:1px solid #e7e4dd;border-radius:16px;overflow:hidden">
+      <sc-for list="{{ insights }}" as="a" hint-placeholder-count="3">
+        <div data-reveal data-svc onClick="{{ a.open }}" style="background:#faf9f6;padding:30px 28px 34px;cursor:pointer;transition:background .3s ease" style-hover="background:#ffffff">
+          <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4bbfc2;margin-bottom:24px"><span>{{ a.tag }}</span><span style="color:#9aa39f">{{ a.date }}</span></div>
+          <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:20px;line-height:1.24;color:#0e2b3c">{{ a.title }}</h3>
+          <div style="margin-top:20px;font-size:13.5px;color:#1c8f92">{{ c.ins_read }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+  <!-- CONTACTO -->
+  <section id="contacto" style="background:#f4f2ec;border-top:1px solid #ebe8e1">
+    <div style="max-width:1220px;margin:0 auto;padding:100px 32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+        <div data-reveal>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px"><span style="width:8px;height:8px;background:#4bbfc2;border-radius:2px;flex:none"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1c8f92">{{ c.contact_kicker }}</span></div>
+          <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(32px,3.6vw,48px);line-height:1.06;letter-spacing:-.015em;color:#0e2b3c">{{ c.contact_title }}</h2>
+          <p style="margin-top:22px;font-size:17px;line-height:1.66;color:#42525a;max-width:30em">{{ c.contact_sub }}</p>
+          <div style="margin-top:34px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9aa39f;width:96px;flex:none">{{ c.lbl_contact }}</span><span style="font-size:16px;color:#243840"><strong style="font-weight:600">{{ c.person_name }}</strong> · {{ c.person_role }}</span></div>
+            <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9aa39f;width:96px;flex:none">Email</span><a href="mailto:contacto@masterminds.bo" style="font-size:16px">{{ c.email }}</a></div>
+            <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9aa39f;width:96px;flex:none">{{ c.lbl_phone }}</span><span style="font-size:16px;color:#243840">{{ c.phone }}</span></div>
+            <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9aa39f;width:96px;flex:none">{{ c.lbl_loc }}</span><span style="font-size:16px;color:#243840">{{ c.location }}</span></div>
+            <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9aa39f;width:96px;flex:none">LinkedIn</span><a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" style="font-size:16px">/company/mastermindsbol</a></div>
+          </div>
+        </div>
+        <div data-reveal style="background:#fff;border:1px solid #e3e0d8;border-radius:20px;padding:36px 34px;box-shadow:0 24px 60px -40px rgba(14,43,60,.4)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <label style="display:block"><span style="display:block;font-size:12.5px;color:#5a6a70;margin-bottom:7px">{{ c.f_name }}</span><input type="text" style="width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid #d9d5cc;border-radius:10px;background:#faf9f6;color:#16262e" style-focus="border-color:#4bbfc2;outline:none"/></label>
+            <label style="display:block"><span style="display:block;font-size:12.5px;color:#5a6a70;margin-bottom:7px">{{ c.f_company }}</span><input type="text" style="width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid #d9d5cc;border-radius:10px;background:#faf9f6;color:#16262e" style-focus="border-color:#4bbfc2;outline:none"/></label>
+          </div>
+          <label style="display:block;margin-top:16px"><span style="display:block;font-size:12.5px;color:#5a6a70;margin-bottom:7px">{{ c.f_email }}</span><input type="email" style="width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid #d9d5cc;border-radius:10px;background:#faf9f6;color:#16262e" style-focus="border-color:#4bbfc2;outline:none"/></label>
+          <label style="display:block;margin-top:16px"><span style="display:block;font-size:12.5px;color:#5a6a70;margin-bottom:7px">{{ c.f_msg }}</span><textarea rows="4" style="width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid #d9d5cc;border-radius:10px;background:#faf9f6;color:#16262e;resize:vertical" style-focus="border-color:#4bbfc2;outline:none"></textarea></label>
+          <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:12px">
+            <button style="font-family:inherit;font-size:15px;font-weight:500;color:#fff;background:#0e2b3c;border:none;padding:14px 24px;border-radius:999px;cursor:pointer" style-hover="background:#16465f">{{ c.f_submit }}</button>
+            <a href="#" style="font-family:inherit;font-size:15px;font-weight:500;color:#0e2b3c;background:none;border:1px solid #cfd6d3;padding:14px 24px;border-radius:999px;display:inline-flex;align-items:center;gap:9px" style-hover="border-color:#4bbfc2">↓ {{ c.f_brochure }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer style="background:#0b2231;color:#8fb0ba">
+    <div style="max-width:1220px;margin:0 auto;padding:52px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px">
+      <div style="display:flex;align-items:center;gap:12px;color:#fff">
+        <img src="uploads/mastermindsbol_logo.jpeg" alt="Masterminds" style="width:34px;height:34px;border-radius:8px"/>
+        <div>
+          <div style="font-family:'Spectral',serif;font-size:18px;font-weight:600">Masterminds</div>
+          <div style="font-size:12.5px;color:#7f9ea8">{{ c.footer_tag }}</div>
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:#6f909b">{{ c.footer_rights }}</div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:100;background:rgba(8,26,38,.55);backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:6vh 20px;overflow:auto">
+      <div onClick="{{ stop }}" style="background:#faf9f6;max-width:720px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);animation:mmpop .32s cubic-bezier(.22,.61,.36,1)">
+        <div style="background:#0e2b3c;color:#fff;padding:34px 40px 30px;position:relative">
+          <button onClick="{{ closeModal }}" style="position:absolute;top:20px;right:22px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:none;color:#fff;font-size:15px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">✕</button>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#4bbfc2;margin-bottom:14px">{{ modalTag }}</div>
+          <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:28px;line-height:1.15;max-width:22em">{{ modalTitle }}</h3>
+        </div>
+        <div style="padding:32px 40px 36px;display:flex;flex-direction:column;gap:22px">
+          <sc-for list="{{ modalBlocks }}" as="b" hint-placeholder-count="3">
+            <div>
+              <sc-if value="{{ b.title }}" hint-placeholder-val="{{ false }}"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#1c8f92;margin-bottom:11px">{{ b.title }}</div></sc-if>
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}"><p style="font-size:15.5px;line-height:1.66;color:#3d4d54">{{ b.text }}</p></sc-if>
+              <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><div style="display:flex;gap:12px;align-items:flex-start"><span style="width:7px;height:7px;border-radius:50%;background:#4bbfc2;margin-top:7px;flex:none"></span><span style="font-size:15px;line-height:1.55;color:#3d4d54">{{ it }}</span></div></sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isNote }}" hint-placeholder-val="{{ false }}"><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa39f;border-top:1px dashed #d7d3c8;padding-top:14px">{{ b.text }}</div></sc-if>
+            </div>
+          </sc-for>
+          <div style="padding-top:4px"><a href="#contacto" onClick="{{ closeModal }}" style="font-size:14.5px;font-weight:500;color:#fff;background:#0e2b3c;padding:13px 24px;border-radius:999px;display:inline-block" style-hover="background:#16465f">{{ c.modal_cta }}</a></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contenido&quot;},&quot;showInsights&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Secciones&quot;},&quot;showCases&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Secciones&quot;}}">
+class Component extends DCLogic {
+  state = { lang: (this.props.defaultLang === 'en' ? 'en' : 'es'), modal: null, wordIdx: 0 };
+
+  content() {
+    const es = {
+      cta_meeting: 'Agendar reunión',
+      see_more: 'Ver más →', case_more: 'Ver caso →', modal_cta: 'Conversar sobre esto →',
+      trust_label: 'Presencia y experiencia',
+      trust: ['CAINCO','AMCHAM','BRAQ CorpAffairs','GCF Task Force','Renaissance Executive Forums'],
+      nav: [
+        {label:'Nosotros',href:'#nosotros'},{label:'Servicios',href:'#servicios'},
+        {label:'Sectores',href:'#sectores'},{label:'Eventos',href:'#eventos'},
+        {label:'Equipo',href:'#equipo'},{label:'Contacto',href:'#contacto'}
+      ],
+      hero_kicker: 'Consultoría económica y financiera · Bolivia',
+      hero_pre: 'Análisis',
+      hero_rot: ['económico','coyuntural','político'],
+      hero_post: 'para decisiones de alto impacto.',
+      hero_chart_label: 'LECTURA DE LA ECONOMÍA',
+      hero_sub: 'Acompañamos a inversores, empresas líderes e instituciones con análisis económico, coyuntural y político riguroso — para decidir con certeza en un entorno complejo.',
+      hero_cta1: 'Agendar una consulta',
+      hero_cta2: 'Ver servicios',
+      n_ch1:'01 · El contexto', n_stmt1:'Bolivia es uno de los entornos más difíciles de leer de la región.', n_stmt1_sub:'Inflación, tipo de cambio, política y regulación se mueven al mismo tiempo. Para quien invierte o dirige, malinterpretar el ruido cuesta caro.',
+      n_ch2:'02 · Nuestra lectura', n_stmt2:'Convertimos ese ruido en una lectura clara y accionable.', n_stmt2_sub:'Tres miradas que trabajan juntas para explicar no solo qué pasa, sino qué hacer al respecto.',
+      pillars:[{n:'01',k:'Económico',d:'La estructura: inflación, crecimiento y desempeño sectorial.'},{n:'02',k:'Coyuntural',d:'El momento: qué cambia hoy y por qué le importa a su negocio.'},{n:'03',k:'Político',d:'El poder: escenarios electorales, riesgo y regulación.'}],
+      n_quote:'Hacemos más exitosos a nuestros clientes a través de métodos ingeniosos de gestión.', n_quote_by:'Martin Rapp · Director Ejecutivo',
+      ticker: ['Inflación','Tipo de cambio','Riesgo país','PIB','Reservas internacionales','Exportaciones','Inversión extranjera','Política fiscal','Coyuntura política','Sector privado'],
+      serv_kicker: 'Servicios',
+      serv_title: 'Análisis que se traduce en decisiones.',
+      serv_sub: 'Cada servicio combina rigor técnico con lectura real del terreno boliviano y regional.',
+      services: [
+        {n:'01',title:'Análisis Económico',desc:'Lectura macroeconómica y sectorial, proyecciones y escenarios que convierten datos complejos en decisiones claras.'},
+        {n:'02',title:'Análisis Coyuntural',desc:'Interpretación en tiempo real del entorno económico y su impacto directo sobre su negocio y sus inversiones.'},
+        {n:'03',title:'Análisis Político',desc:'Evaluación de riesgo político, escenarios electorales y regulatorios para anticipar cambios y proteger su capital.'},
+        {n:'04',title:'Asesoría Empresarial',desc:'Acompañamiento estratégico a directorios y equipos ejecutivos con métodos de gestión probados en 16 países.'},
+        {n:'05',title:'Estudios de Factibilidad',desc:'Evaluación económica y financiera de proyectos e inversiones, del diagnóstico a la recomendación accionable.'},
+        {n:'06',title:'Programas de Liderazgo',desc:'Formación ejecutiva y foros de liderazgo que fortalecen la capacidad de decisión de sus líderes.'}
+      ],
+      about_kicker: 'Nosotros',
+      about_title: 'Décadas leyendo la economía boliviana — y traduciéndola para el mundo.',
+      about_p1: 'Masterminds es una consultora boliviana especializada en análisis económico, coyuntural y político. Acompañamos a clientes extranjeros, empresas líderes, fondos e instituciones a entender el entorno boliviano y regional con la profundidad que exigen las decisiones de alto riesgo.',
+      about_p2: 'Fundada y dirigida por Martin Rapp — economista de formación alemana con más de 40 años de trayectoria ejecutiva — combinamos rigor analítico, experiencia real en directorios y una red construida durante décadas al más alto nivel empresarial e institucional del país, incluyendo el Programa de Liderazgo de CAINCO y los Renaissance Executive Forums.',
+      about_creds: ['Formación en Economía · Alemania','Director y Advisory Boards desde 2001','Programa de Liderazgo CAINCO','Renaissance Executive Forums · Santa Cruz','Presencia en foros AMCHAM y BRAQ'],
+      events_kicker: 'Eventos',
+      events_title: 'Presentes donde se decide la economía del país.',
+      events_sub: 'Foros, directorios y encuentros donde compartimos análisis con líderes empresariales y autoridades.',
+      events_ph: 'Suelta la foto del evento',
+      events: [
+        {slot:'ev1',meta:'La Paz · Cochabamba · Santa Cruz',title:'Perspectivas Económicas y Desafíos Empresariales'},
+        {slot:'ev2',meta:'AMCHAM Bolivia',title:'AMCHAM Business Forum 2026'},
+        {slot:'ev3',meta:'CAINCO',title:'Programa de Liderazgo CAINCO'},
+        {slot:'ev4',meta:'Millennials CAINCO',title:'El rol del CEO en el contexto actual'},
+        {slot:'ev5',meta:'Santa Cruz · 2024',title:'GCF Task Force — Encuentro Técnico'},
+        {slot:'ev6',meta:'Renaissance Executive Forums',title:'Forum Líder · Santa Cruz'}
+      ],
+      metrics: [
+        {v:44,suf:'',label:'Años de experiencia'},
+        {v:16,suf:'',label:'Países y geografías'},
+        {v:350,suf:'+',label:'Líderes empresariales asesorados'},
+        {v:18,suf:'',label:'Años en directorios'}
+      ],
+      sect_kicker: 'Sectores',
+      sect_title: 'Sectores donde nuestro análisis genera ventaja.',
+      sectors: ['Banca y Finanzas','Energía y Minería','Agroindustria','Inversión Extranjera','Sector Público y Multilaterales','Manufactura e Industria'],
+      method_kicker: 'Metodología',
+      method_title: 'Un proceso claro, de la pregunta a la acción.',
+      method: [
+        {n:'01',title:'Diagnóstico',desc:'Entendemos su objetivo, su exposición y las preguntas que realmente importan.'},
+        {n:'02',title:'Análisis',desc:'Procesamos datos económicos, coyunturales y políticos con marcos propios.'},
+        {n:'03',title:'Estrategia',desc:'Traducimos el análisis en escenarios y recomendaciones accionables.'},
+        {n:'04',title:'Acompañamiento',desc:'Acompañamos la ejecución y ajustamos ante cada cambio del entorno.'}
+      ],
+      cases_kicker: 'Casos',
+      cases_title: 'Trabajo que respalda decisiones reales.',
+      cases_note: '[ ejemplos representativos ]',
+      cases: [
+        {tag:'Inversión Extranjera',title:'Evaluación de riesgo para ingreso al mercado',desc:'Análisis integral de escenarios económicos y políticos para un inversor internacional evaluando su entrada a Bolivia.'},
+        {tag:'Energía',title:'Estudio de factibilidad sectorial',desc:'Modelo económico-financiero y lectura regulatoria para un proyecto de gran escala.'},
+        {tag:'Banca y Finanzas',title:'Perspectivas para el directorio',desc:'Informe recurrente de coyuntura para la toma de decisiones de un directorio líder.'}
+      ],
+      team_kicker: 'Equipo',
+      team_title: 'Experiencia que rara vez cabe en un CV.',
+      team: [
+        {name:'Martin Rapp',role:'Director Ejecutivo & Fundador',bio:'Nacido en Alemania y economista de formación. Más de 40 años en cargos ejecutivos y 18 en directorios; subgerente general y director de bancos durante 14 años. Ha hecho más exitosos a sus clientes con métodos de gestión en 16 países. Lidera el Programa de Liderazgo de CAINCO y dirigió el Forum Líder de Renaissance Executive Forums en Santa Cruz.'},
+        {name:'[ Nombre ]',role:'Analista Económico Senior',bio:'Especialista en análisis macroeconómico y sectorial, proyecciones y modelación financiera. [ Perfil pendiente de completar ]'},
+        {name:'[ Nombre ]',role:'Analista Político',bio:'Enfocado en riesgo político, escenarios electorales y regulatorios para la toma de decisiones. [ Perfil pendiente de completar ]'}
+      ],
+      ins_kicker: 'Insights',
+      ins_title: 'Perspectivas sobre Bolivia y la región.',
+      ins_link: 'Suscribirse →',
+      ins_read: 'Leer →',
+      insights: [
+        {tag:'Perspectivas',date:'2026',title:'Perspectivas económicas: escenarios para el próximo ciclo.'},
+        {tag:'Riesgo Político',date:'2026',title:'Riesgo político y decisiones de inversión en Bolivia.'},
+        {tag:'Coyuntura',date:'2026',title:'El año de la empresa privada: cómo leer el entorno.'}
+      ],
+      contact_kicker: 'Contacto',
+      contact_title: 'Hablemos de su próxima decisión.',
+      contact_sub: 'Cuéntenos su desafío. Preparamos una primera conversación sin costo para entender cómo podemos ayudar.',
+      lbl_contact:'Contacto', lbl_phone:'Teléfono', lbl_loc:'Ubicación',
+      person_name:'Martin Rapp', person_role:'Director Ejecutivo',
+      email:'contacto@masterminds.bo', phone:'+591 — placeholder', location:'La Paz · Santa Cruz, Bolivia',
+      f_name:'Nombre', f_company:'Empresa', f_email:'Correo', f_msg:'¿En qué podemos ayudar?',
+      f_submit:'Enviar mensaje', f_brochure:'Descargar brochure',
+      footer_tag:'Consultoría económica y financiera', footer_rights:'© 2026 Masterminds S.R.L. · Bolivia'
+    };
+    const en = {
+      cta_meeting: 'Book a meeting',
+      see_more: 'See more →', case_more: 'View case →', modal_cta: 'Talk about this →',
+      trust_label: 'Presence & experience',
+      trust: ['CAINCO','AMCHAM','BRAQ CorpAffairs','GCF Task Force','Renaissance Executive Forums'],
+      nav: [
+        {label:'About',href:'#nosotros'},{label:'Services',href:'#servicios'},
+        {label:'Sectors',href:'#sectores'},{label:'Events',href:'#eventos'},
+        {label:'Team',href:'#equipo'},{label:'Contact',href:'#contacto'}
+      ],
+      hero_kicker: 'Economic & financial consulting · Bolivia',
+      hero_pre: '',
+      hero_rot: ['Economic','Situational','Political'],
+      hero_post: 'analysis for high-impact decisions.',
+      hero_chart_label: 'READING THE ECONOMY',
+      hero_sub: 'We guide investors, leading companies and institutions with rigorous economic, situational and political analysis — so they can decide with confidence in a complex environment.',
+      hero_cta1: 'Book a consultation',
+      hero_cta2: 'See services',
+      n_ch1:'01 · The context', n_stmt1:'Bolivia is one of the hardest environments to read in the region.', n_stmt1_sub:'Inflation, exchange rate, politics and regulation all move at once. For those who invest or lead, misreading the noise is costly.',
+      n_ch2:'02 · Our reading', n_stmt2:'We turn that noise into a clear, actionable reading.', n_stmt2_sub:'Three lenses working together to explain not just what is happening, but what to do about it.',
+      pillars:[{n:'01',k:'Economic',d:'The structure: inflation, growth and sector performance.'},{n:'02',k:'Situational',d:'The moment: what changes today and why it matters to your business.'},{n:'03',k:'Political',d:'Power: electoral scenarios, risk and regulation.'}],
+      n_quote:'We make our clients more successful through ingenious management methods.', n_quote_by:'Martin Rapp · Executive Director',
+      ticker: ['Inflation','Exchange rate','Country risk','GDP','Intl. reserves','Exports','Foreign investment','Fiscal policy','Political outlook','Private sector'],
+      serv_kicker: 'Services',
+      serv_title: 'Analysis that turns into decisions.',
+      serv_sub: 'Every service pairs technical rigor with a real reading of the Bolivian and regional ground.',
+      services: [
+        {n:'01',title:'Economic Analysis',desc:'Macroeconomic and sector reading, forecasts and scenarios that turn complex data into clear decisions.'},
+        {n:'02',title:'Situational Analysis',desc:'Real-time interpretation of the economic environment and its direct impact on your business and investments.'},
+        {n:'03',title:'Political Analysis',desc:'Political-risk assessment, electoral and regulatory scenarios to anticipate change and protect your capital.'},
+        {n:'04',title:'Business Advisory',desc:'Strategic guidance for boards and executive teams, with management methods proven across 16 countries.'},
+        {n:'05',title:'Feasibility Studies',desc:'Economic and financial evaluation of projects and investments, from diagnosis to actionable recommendation.'},
+        {n:'06',title:'Leadership Programs',desc:'Executive training and leadership forums that strengthen your leaders\u2019 capacity to decide.'}
+      ],
+      about_kicker: 'About us',
+      about_title: 'Decades reading Bolivia\u2019s economy — and translating it for the world.',
+      about_p1: 'Masterminds is a Bolivian consultancy specialized in economic, situational and political analysis. We help foreign clients, leading companies, funds and institutions understand the Bolivian and regional environment with the depth that high-risk decisions demand.',
+      about_p2: 'Founded and led by Martin Rapp — a German-trained economist with 40+ years of executive experience — we combine analytical rigor, real board experience and a network built over decades at the highest business and institutional level in the country, including the CAINCO Leadership Program and the Renaissance Executive Forums.',
+      about_creds: ['Economics training · Germany','Director & advisory boards since 2001','CAINCO Leadership Program','Renaissance Executive Forums · Santa Cruz','Present at AMCHAM and BRAQ forums'],
+      events_kicker: 'Events',
+      events_title: 'Present where the country\u2019s economy is decided.',
+      events_sub: 'Forums, boards and gatherings where we share analysis with business leaders and authorities.',
+      events_ph: 'Drop the event photo',
+      events: [
+        {slot:'ev1',meta:'La Paz · Cochabamba · Santa Cruz',title:'Economic Outlook & Business Challenges Forum'},
+        {slot:'ev2',meta:'AMCHAM Bolivia',title:'AMCHAM Business Forum 2026'},
+        {slot:'ev3',meta:'CAINCO',title:'CAINCO Leadership Program'},
+        {slot:'ev4',meta:'Millennials CAINCO',title:'The role of the CEO in today\u2019s context'},
+        {slot:'ev5',meta:'Santa Cruz · 2024',title:'GCF Task Force — Technical Meeting'},
+        {slot:'ev6',meta:'Renaissance Executive Forums',title:'Forum Líder · Santa Cruz'}
+      ],
+      metrics: [
+        {v:44,suf:'',label:'Years of experience'},
+        {v:16,suf:'',label:'Countries & geographies'},
+        {v:350,suf:'+',label:'Business leaders advised'},
+        {v:18,suf:'',label:'Years on boards'}
+      ],
+      sect_kicker: 'Sectors',
+      sect_title: 'Sectors where our analysis creates an edge.',
+      sectors: ['Banking & Finance','Energy & Mining','Agribusiness','Foreign Investment','Public Sector & Multilaterals','Manufacturing & Industry'],
+      method_kicker: 'Method',
+      method_title: 'A clear process, from question to action.',
+      method: [
+        {n:'01',title:'Diagnosis',desc:'We understand your goal, your exposure and the questions that truly matter.'},
+        {n:'02',title:'Analysis',desc:'We process economic, situational and political data with proprietary frameworks.'},
+        {n:'03',title:'Strategy',desc:'We translate the analysis into scenarios and actionable recommendations.'},
+        {n:'04',title:'Support',desc:'We support execution and adjust to every shift in the environment.'}
+      ],
+      cases_kicker: 'Cases',
+      cases_title: 'Work that backs real decisions.',
+      cases_note: '[ representative examples ]',
+      cases: [
+        {tag:'Foreign Investment',title:'Risk assessment for market entry',desc:'End-to-end analysis of economic and political scenarios for an international investor evaluating entry into Bolivia.'},
+        {tag:'Energy',title:'Sector feasibility study',desc:'Economic-financial model and regulatory reading for a large-scale project.'},
+        {tag:'Banking & Finance',title:'Board-level outlook',desc:'Recurring situational report supporting the decisions of a leading board.'}
+      ],
+      team_kicker: 'Team',
+      team_title: 'Experience that rarely fits on a CV.',
+      team: [
+        {name:'Martin Rapp',role:'Executive Director & Founder',bio:'German-born, trained as an economist. 40+ years in executive roles and 18 on boards; deputy general manager and bank director for 14 years. He has made his clients more successful with management methods across 16 countries. He leads the CAINCO Leadership Program and directed the Renaissance Executive Forums\u2019 Forum Líder in Santa Cruz.'},
+        {name:'[ Name ]',role:'Senior Economic Analyst',bio:'Specialist in macroeconomic and sector analysis, forecasting and financial modeling. [ Profile to be completed ]'},
+        {name:'[ Name ]',role:'Political Analyst',bio:'Focused on political risk, electoral and regulatory scenarios for decision-making. [ Profile to be completed ]'}
+      ],
+      ins_kicker: 'Insights',
+      ins_title: 'Perspectives on Bolivia and the region.',
+      ins_link: 'Subscribe →',
+      ins_read: 'Read →',
+      insights: [
+        {tag:'Outlook',date:'2026',title:'Economic outlook: scenarios for the next cycle.'},
+        {tag:'Political Risk',date:'2026',title:'Political risk and investment decisions in Bolivia.'},
+        {tag:'Situation',date:'2026',title:'The year of private enterprise: how to read the environment.'}
+      ],
+      contact_kicker: 'Contact',
+      contact_title: 'Let\u2019s talk about your next decision.',
+      contact_sub: 'Tell us your challenge. We\u2019ll set up a first conversation at no cost to understand how we can help.',
+      lbl_contact:'Contact', lbl_phone:'Phone', lbl_loc:'Location',
+      person_name:'Martin Rapp', person_role:'Executive Director',
+      email:'contacto@masterminds.bo', phone:'+591 — placeholder', location:'La Paz · Santa Cruz, Bolivia',
+      f_name:'Name', f_company:'Company', f_email:'Email', f_msg:'How can we help?',
+      f_submit:'Send message', f_brochure:'Download brochure',
+      footer_tag:'Economic & financial consulting', footer_rights:'© 2026 Masterminds S.R.L. · Bolivia'
+    };
+    return this.state.lang === 'en' ? en : es;
+  }
+
+  toggleLang = () => this.setState(s => ({ lang: s.lang === 'es' ? 'en' : 'es' }));
+  openModal = (type, i) => this.setState({ modal: { type, i } });
+  closeModal = () => this.setState({ modal: null });
+
+  details(L) {
+    const es = {
+      labels: { context:'Contexto', approach:'Enfoque', outcome:'Resultado', deliver:'Qué entregamos', who:'Ideal para', draftNote:'Borrador — contenido de ejemplo, pendiente de personalizar con el equipo.' },
+      service: [
+        {deliver:['Informe macroeconómico con proyecciones de inflación, tipo de cambio y crecimiento','Análisis sectorial a la medida de su industria','Escenarios base, optimista y de estrés','Recomendaciones accionables para su directorio'], who:'Inversores e instituciones que necesitan una lectura macro confiable.'},
+        {deliver:['Monitoreo del entorno económico en tiempo real','Alertas ante hechos que impactan su operación','Lectura del impacto sobre precios, costos y liquidez','Briefings periódicos para el equipo ejecutivo'], who:'Empresas que operan en un entorno cambiante y de alta incertidumbre.'},
+        {deliver:['Mapa de actores y escenarios electorales','Evaluación de riesgo regulatorio y normativo','Impacto político sobre inversiones y contratos','Escenarios de transición y sus consecuencias'], who:'Quienes evalúan riesgo político antes de comprometer capital.'},
+        {deliver:['Acompañamiento a directorios y comités','Diagnóstico estratégico y priorización','Métodos de gestión probados en 16 países','Seguimiento y ajuste de la ejecución'], who:'Directorios y equipos ejecutivos que buscan una mirada externa.'},
+        {deliver:['Modelo económico-financiero del proyecto','Análisis de viabilidad y sensibilidad','Lectura regulatoria y del entorno','Recomendación de inversión fundamentada'], who:'Proyectos de inversión que requieren sustento económico riguroso.'},
+        {deliver:['Programas y foros ejecutivos a la medida','Desarrollo de la capacidad de decisión','Intercambio entre pares del más alto nivel','Herramientas prácticas y accionables'], who:'Organizaciones que quieren fortalecer a sus líderes.'}
+      ],
+      cases: [
+        {context:'Un grupo inversor internacional evaluaba su ingreso al mercado boliviano y necesitaba entender el riesgo real, más allá de los titulares.', approach:['Diagnóstico del entorno macroeconómico y político','Construcción de escenarios a 12 y 36 meses','Evaluación de riesgo regulatorio y cambiario'], outcome:['Decisión de inversión informada y por etapas','Mapa de riesgos con señales de alerta temprana','Hoja de ruta de entrada al mercado']},
+        {context:'Un proyecto energético de gran escala requería sustentar su viabilidad ante socios y financiadores.', approach:['Modelo económico-financiero integral','Análisis de sensibilidad y escenarios de estrés','Lectura del marco regulatorio del sector'], outcome:['Estudio de factibilidad listo para el directorio','Supuestos validados con datos del sector','Recomendación de estructura de inversión']},
+        {context:'El directorio de una institución financiera necesitaba una lectura recurrente de la coyuntura para decidir con anticipación.', approach:['Informe trimestral de coyuntura económica','Briefings ante hechos relevantes','Escenarios y su impacto sobre el negocio'], outcome:['Decisiones anticipadas ante el cambio de entorno','Lenguaje común de riesgo en el directorio','Mayor confianza ante inversionistas']}
+      ],
+      insights: [
+        {lede:'Un adelanto de los escenarios que Masterminds proyecta para el próximo ciclo económico.', body:['Este es un borrador de artículo. Aquí desarrollaremos las variables clave — inflación, tipo de cambio, reservas y crecimiento — y su interacción en distintos escenarios.','Incluiremos gráficos, datos y una lectura accionable para directorios e inversores. [ Contenido pendiente de redacción final ]']},
+        {lede:'Cómo el riesgo político condiciona las decisiones de inversión en Bolivia.', body:['Borrador de artículo. Analizaremos el mapa de actores, los escenarios electorales y su impacto sobre contratos e inversiones.','Cerraremos con recomendaciones para anticipar cambios y proteger el capital. [ Contenido pendiente ]']},
+        {lede:'Una lectura del entorno y del rol de la empresa privada en el ciclo actual.', body:['Borrador de artículo. Revisaremos la coyuntura reciente y las oportunidades para el sector privado.','Incluiremos señales a monitorear en los próximos meses. [ Contenido pendiente ]']}
+      ]
+    };
+    const en = {
+      labels: { context:'Context', approach:'Approach', outcome:'Outcome', deliver:'What we deliver', who:'Ideal for', draftNote:'Draft — sample content, to be tailored with the team.' },
+      service: [
+        {deliver:['Macroeconomic report with inflation, FX and growth forecasts','Sector analysis tailored to your industry','Base, upside and stress scenarios','Actionable recommendations for your board'], who:'Investors and institutions that need a reliable macro reading.'},
+        {deliver:['Real-time monitoring of the economic environment','Alerts on events that affect your operation','Reading of the impact on prices, costs and liquidity','Regular briefings for the executive team'], who:'Companies operating in a shifting, high-uncertainty environment.'},
+        {deliver:['Map of actors and electoral scenarios','Regulatory and legal risk assessment','Political impact on investments and contracts','Transition scenarios and their consequences'], who:'Those assessing political risk before committing capital.'},
+        {deliver:['Support for boards and committees','Strategic diagnosis and prioritization','Management methods proven across 16 countries','Follow-up and adjustment of execution'], who:'Boards and executive teams seeking an outside view.'},
+        {deliver:['Economic-financial model of the project','Viability and sensitivity analysis','Regulatory and environment reading','Well-founded investment recommendation'], who:'Investment projects that need rigorous economic grounding.'},
+        {deliver:['Tailored executive programs and forums','Building decision-making capacity','Peer exchange at the highest level','Practical, actionable tools'], who:'Organizations that want to strengthen their leaders.'}
+      ],
+      cases: [
+        {context:'An international investor group was assessing entry into the Bolivian market and needed to understand the real risk, beyond the headlines.', approach:['Diagnosis of the macroeconomic and political environment','Building 12- and 36-month scenarios','Regulatory and FX risk assessment'], outcome:['Informed, staged investment decision','Risk map with early-warning signals','Market-entry roadmap']},
+        {context:'A large-scale energy project needed to substantiate its viability to partners and financiers.', approach:['Comprehensive economic-financial model','Sensitivity analysis and stress scenarios','Reading of the sector regulatory framework'], outcome:['Board-ready feasibility study','Assumptions validated with sector data','Recommended investment structure']},
+        {context:'The board of a financial institution needed a recurring reading of the environment to decide ahead of time.', approach:['Quarterly economic-situation report','Briefings on relevant events','Scenarios and their impact on the business'], outcome:['Decisions taken ahead of environment shifts','Shared risk language on the board','Greater confidence with investors']}
+      ],
+      insights: [
+        {lede:'A preview of the scenarios Masterminds projects for the next economic cycle.', body:['This is a draft article. Here we will develop the key variables — inflation, FX, reserves and growth — and their interaction across scenarios.','It will include charts, data and an actionable reading for boards and investors. [ Final copy pending ]']},
+        {lede:'How political risk shapes investment decisions in Bolivia.', body:['Draft article. We will analyze the map of actors, electoral scenarios and their impact on contracts and investments.','We will close with recommendations to anticipate change and protect capital. [ Content pending ]']},
+        {lede:'A reading of the environment and the role of private enterprise in the current cycle.', body:['Draft article. We will review the recent situation and the opportunities for the private sector.','It will include signals to monitor in the coming months. [ Content pending ]']}
+      ]
+    };
+    return L === 'en' ? en : es;
+  }
+
+  componentDidMount() {
+    this.runReveal();
+    this._esc=(e)=>{ if(e.key==='Escape') this.closeModal(); };
+    window.addEventListener('keydown', this._esc);
+    this._wt=setInterval(()=>this.setState(s=>({wordIdx:s.wordIdx+1})), 2600);
+    this._prog=()=>{ const el=document.getElementById('mmprogress'); if(!el) return; const se=document.scrollingElement||document.documentElement; const h=se.scrollHeight-se.clientHeight; el.style.width=(h>0?(se.scrollTop/h*100):0)+'%'; };
+    window.addEventListener('scroll', this._prog, {passive:true});
+    this._prog();
+  }
+  componentWillUnmount() { if(this._esc) window.removeEventListener('keydown', this._esc); if(this._wt) clearInterval(this._wt); if(this._prog) window.removeEventListener('scroll', this._prog); }
+  componentDidUpdate() { this.runReveal(); }
+
+  runReveal() {
+    if (this._setup) return;
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (!nodes.length) { this._retry = (this._retry||0)+1; if(this._retry<20) setTimeout(()=>this.runReveal(),120); return; }
+    this._setup = true;
+    const reveal = (n)=>{ n.style.opacity='1'; n.style.transform='none'; };
+    nodes.forEach(n => { n.style.opacity='0'; n.style.transform='translateY(22px)'; n.style.transition='opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)'; });
+
+    const inView = (n)=>{ const r=n.getBoundingClientRect(); const h=window.innerHeight||800; return r.top < h*0.9 && r.bottom > 0; };
+    const pass = ()=> nodes.forEach(n=>{ if(n.style.opacity!=='1' && inView(n)) reveal(n); });
+
+    let usedIO = false;
+    try {
+      const io = new IntersectionObserver((entries)=>{ usedIO=true; entries.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); },{threshold:.12});
+      nodes.forEach(n=>io.observe(n));
+    } catch(e) {}
+
+    // Guaranteed fallbacks (IO may not fire in some preview contexts)
+    pass();
+    window.addEventListener('scroll', pass, {passive:true});
+    window.addEventListener('resize', pass, {passive:true});
+    setTimeout(pass, 250);
+    // Unconditional catch-all: content must never depend on IO/window-scroll to become visible
+    setTimeout(()=> nodes.forEach(reveal), 600);
+
+    const counters = Array.from(document.querySelectorAll('[data-count]'));
+    setTimeout(()=>{ counters.forEach(c=>{ if(!c._done){ c._done=true; this.animateCount(c); } }); }, 700);
+  }
+
+  animateCount(el){
+    const target = parseFloat(el.getAttribute('data-count'))||0;
+    const dur=1400, t0=performance.now();
+    const tick=(now)=>{ const p=Math.min(1,(now-t0)/dur); const eased=1-Math.pow(1-p,3); el.textContent=Math.round(target*eased); if(p<1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+
+  renderVals() {
+    const c = this.content();
+    const L = this.state.lang;
+    const D = this.details(L);
+    const teamLead = c.team[0] || {};
+    const teamRest = c.team.slice(1);
+    const heroStats = (c.metrics || []).slice(0,3);
+    const rot = c.hero_rot || [];
+    const rotWordEl = rot.length
+      ? React.createElement('span', { key: this.state.wordIdx, style: { display:'inline-block', color:'#1c8f92', animation:'mmword .55s ease' } }, rot[this.state.wordIdx % rot.length])
+      : null;
+    const services = c.services.map((s,i)=>({ ...s, open: ()=>this.openModal('service',i) }));
+    const cases = c.cases.map((x,i)=>({ ...x, open: ()=>this.openModal('case',i) }));
+    const insights = c.insights.map((a,i)=>({ ...a, open: ()=>this.openModal('insight',i) }));
+
+    const P=(title,text)=>({title:title||'',isP:true,isList:false,isNote:false,text,items:[]});
+    const LST=(title,items)=>({title:title||'',isP:false,isList:true,isNote:false,text:'',items});
+    const NOTE=(text)=>({title:'',isP:false,isList:false,isNote:true,text,items:[]});
+    const m = this.state.modal;
+    let modalOpen=false, modalTag='', modalTitle='', modalBlocks=[];
+    if (m) {
+      modalOpen=true;
+      if (m.type==='service') { const s=c.services[m.i], dd=D.service[m.i]; modalTag=c.serv_kicker; modalTitle=s.title;
+        modalBlocks=[P('',s.desc), LST(D.labels.deliver,dd.deliver), P(D.labels.who,dd.who), NOTE(D.labels.draftNote)]; }
+      else if (m.type==='case') { const x=c.cases[m.i], dd=D.cases[m.i]; modalTag=x.tag; modalTitle=x.title;
+        modalBlocks=[P(D.labels.context,dd.context), LST(D.labels.approach,dd.approach), LST(D.labels.outcome,dd.outcome), NOTE(D.labels.draftNote)]; }
+      else { const a=c.insights[m.i], dd=D.insights[m.i]; modalTag=a.tag+' · '+a.date; modalTitle=a.title;
+        modalBlocks=[P('',dd.lede), ...dd.body.map(t=>P('',t)), NOTE(D.labels.draftNote)]; }
+    }
+    return {
+      c, teamLead, teamRest, heroStats, rotWordEl, services, cases, insights,
+      otherLang: this.state.lang === 'es' ? 'EN' : 'ES',
+      toggleLang: this.toggleLang,
+      showInsights: this.props.showInsights ?? true,
+      showCases: this.props.showCases ?? true,
+      modalOpen, modalTag, modalTitle, modalBlocks,
+      closeModal: this.closeModal,
+      stop: (e)=>{ if(e && e.stopPropagation) e.stopPropagation(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

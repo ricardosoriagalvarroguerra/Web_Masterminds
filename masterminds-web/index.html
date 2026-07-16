@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MasterMinds · Inteligencia estratégica para decidir en Bolivia</title>
+<meta name="description" content="MasterMinds — inteligencia estratégica boliviana. Análisis económico, coyuntural y político que convierte la incertidumbre en decisiones de alto impacto. Dirigida por Martin Rapp.">
+<link rel="icon" href="assets/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MASTERMINDS · Design System
+   ============================================================ */
+:root{
+  --paper:#f4f1e9;      --paper-alt:#ece6d8;   --paper-card:#faf8f2;
+  --ink:#0e2733;        --navy:#0e2b3c;        --navy-2:#12384c;   --navy-deep:#0a1e2a;
+  --teal:#1c8f92;       --teal-bright:#4bbfc2; --teal-glow:#7fe3e5; --teal-soft:#e5f1f0;
+  --muted:#51636b;      --muted-2:#7c8b90;     --muted-3:#9aa39f;
+  --line:#ddd5c6;       --line-2:#e7e0d1;      --line-dark:rgba(255,255,255,.13);
+  --shadow-sm:0 2px 8px rgba(14,39,51,.06);
+  --shadow-md:0 18px 40px -24px rgba(14,39,51,.32);
+  --shadow-lg:0 40px 90px -40px rgba(10,30,42,.55);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --container:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+a{color:var(--teal);text-decoration:none;transition:color .2s var(--ease)}
+a:hover{color:var(--ink)}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+::selection{background:#cfe9ea;color:var(--ink)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.05}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+
+/* ---- Layout ---- */
+.container{max-width:var(--container);margin:0 auto;padding-left:34px;padding-right:34px}
+.section{padding:clamp(72px,9vw,120px) 0}
+.section--dark{background:var(--navy);color:#eaf3f4}
+.section--paper2{background:var(--paper-alt);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);display:inline-flex;align-items:center;gap:11px}
+.eyebrow::before{content:"";width:8px;height:8px;background:var(--teal-bright);border-radius:2px;flex:none}
+.section--dark .eyebrow{color:var(--teal-bright)}
+.lead{font-size:clamp(17px,1.4vw,19px);line-height:1.7;color:var(--muted)}
+.section--dark .lead{color:#a9c2c9}
+.sec-head{max-width:44rem;margin-bottom:clamp(40px,5vw,60px)}
+.sec-head h2{font-size:clamp(30px,3.9vw,50px);margin:18px 0 0;text-wrap:balance}
+.sec-head .lead{margin-top:20px}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;
+  padding:13px 24px;border-radius:999px;border:1px solid transparent;cursor:pointer;
+  transition:transform .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);white-space:nowrap}
+.btn--primary{background:var(--navy);color:#f4f1e9}
+.btn--primary:hover{background:var(--teal);color:#fff;transform:translateY(-2px);box-shadow:0 16px 30px -16px rgba(14,43,60,.7)}
+.btn--ghost{background:none;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--teal);background:#fff;color:var(--ink)}
+.btn--light{background:var(--teal-bright);color:var(--navy)}
+.btn--light:hover{background:#fff;transform:translateY(-2px)}
+.btn--sm{padding:10px 18px;font-size:14px}
+
+/* ---- Header ---- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;
+  background:linear-gradient(90deg,var(--teal),var(--teal-bright))}
+.site-header{position:sticky;top:0;z-index:100;
+  background:rgba(244,241,233,.82);backdrop-filter:saturate(150%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:30px;padding:15px 0}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.brand:hover{color:var(--ink)}
+.brand img{width:40px;height:40px;border-radius:10px}
+.brand b{font-family:var(--serif);font-size:23px;font-weight:500;letter-spacing:-.01em}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:14.5px}
+.nav-link{color:var(--muted);padding:6px 0;position:relative}
+.nav-link::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--teal-bright);transition:width .25s var(--ease)}
+.nav-link:hover,.nav-link.active{color:var(--ink)}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.lang-btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--ink);
+  background:none;border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;transition:border-color .2s var(--ease),background .2s var(--ease)}
+.lang-btn:hover{border-color:var(--teal);background:#fff}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:9px;width:42px;height:42px;cursor:pointer;color:var(--ink);align-items:center;justify-content:center}
+.menu-toggle svg{width:20px;height:20px}
+
+/* ---- Hero ---- */
+.hero{padding:clamp(40px,6vw,72px) 0 clamp(30px,4vw,48px)}
+.hero__meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
+.hero__meta span:nth-child(2){margin-left:auto}
+.hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(36px,5vw,64px);align-items:center;padding:clamp(44px,6vw,72px) 0 clamp(30px,4vw,44px)}
+.hero__title{font-size:clamp(40px,5.4vw,76px);line-height:1.02;color:var(--ink);text-wrap:balance;font-optical-sizing:auto}
+.hero__title em{font-style:italic;color:var(--teal)}
+.rot{display:inline-block;color:var(--teal);min-width:2ch}
+.rot span{display:inline-block;animation:word .6s var(--ease)}
+.hero__sub{margin-top:26px;font-size:clamp(16.5px,1.4vw,18.5px);line-height:1.68;color:var(--muted);max-width:34em}
+.hero__cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:13px}
+.hero__stats{margin-top:40px;display:flex;flex-wrap:wrap;gap:34px}
+.stat-chip .n{font-family:var(--serif);font-size:clamp(28px,3vw,36px);color:var(--ink);line-height:1}
+.stat-chip .l{margin-top:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2)}
+/* Hero visual panel */
+.hero__panel{position:relative;aspect-ratio:1/1.02;border-radius:22px;overflow:hidden;
+  background:radial-gradient(130% 120% at 72% 6%,#1a5470 0%,var(--navy) 68%);box-shadow:var(--shadow-lg)}
+.hero__panel .lbl{position:absolute;top:24px;left:26px;z-index:2;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:#84b7c3}
+.hero__panel .spin{position:absolute;top:22px;right:24px;z-index:2;width:34px;height:34px;border:1px solid rgba(75,191,194,.4);border-top-color:var(--teal-glow);border-radius:50%;animation:spin 3.4s linear infinite}
+.hero__panel .knot{position:absolute;right:-30px;bottom:-30px;width:180px;opacity:.10;z-index:1}
+.hero__panel svg.chart{position:absolute;left:0;bottom:0;width:100%;height:76%}
+.hero__panel .tag{position:absolute;z-index:3;background:rgba(10,30,42,.72);border:1px solid rgba(127,227,229,.3);backdrop-filter:blur(4px);
+  border-radius:9px;padding:9px 13px;font-family:var(--mono);font-size:11px;color:#dff5f5;top:56%;left:24px;line-height:1.5}
+.hero__panel .tag b{color:var(--teal-glow);font-weight:500}
+
+/* ---- Ticker ---- */
+.ticker{background:var(--navy);border-top:1px solid #16405a;border-bottom:1px solid #16405a;overflow:hidden}
+.ticker__track{display:flex;width:max-content;animation:marquee 42s linear infinite}
+.ticker:hover .ticker__track{animation-play-state:paused}
+.ticker__item{display:flex;align-items:center;gap:14px;padding:14px 26px;font-family:var(--mono);
+  font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:#bfe0e4;white-space:nowrap}
+.ticker__item::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal-bright);flex:none}
+
+/* ---- Context (dark) ---- */
+.context__grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(40px,5vw,64px);align-items:center}
+.context__grid h2{font-size:clamp(29px,3.7vw,50px);color:#fff;text-wrap:balance}
+.viz{position:relative;aspect-ratio:5/4;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line-dark);overflow:hidden}
+.viz .lbl{position:absolute;top:18px;left:22px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:#7fa9b5}
+.viz svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---- Lenses / cards grid ---- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3vw,44px)}
+.lens .rule{height:3px;width:46px;background:var(--teal-bright);transform-origin:left;margin-bottom:20px;border-radius:2px;transition:width .5s var(--ease)}
+.lens:hover .rule{width:72px}
+.lens .n{font-family:var(--mono);font-size:12px;color:var(--teal);margin-bottom:11px}
+.lens h3{font-size:26px;color:var(--ink);margin-bottom:11px}
+.lens p{font-size:15.5px;line-height:1.65;color:var(--muted)}
+.section--dark .lens h3{color:#fff}
+.section--dark .lens p{color:#a9c2c9}
+
+/* ---- About ---- */
+.about__grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(40px,5vw,60px);align-items:center}
+.about__media{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:radial-gradient(120% 100% at 50% 0%,#1a5470,#0d2636);border:1px solid var(--line)}
+.about__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:34% 6%;filter:grayscale(1) contrast(1.05)}
+.about__media .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 18px;
+  background:linear-gradient(to top,rgba(8,24,34,.9),transparent);color:#fff}
+.about__media .cap .nm{font-family:var(--serif);font-size:20px}
+.about__media .cap .rl{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--teal-glow);margin-top:3px}
+.about__body h2{font-size:clamp(27px,3.2vw,42px);color:var(--ink)}
+.about__body p{margin-top:20px;font-size:16.5px;line-height:1.7;color:var(--muted)}
+.creds{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.cred{font-size:13px;color:var(--teal);background:var(--teal-soft);border:1px solid #d3e6e5;padding:8px 14px;border-radius:999px}
+
+/* ---- Metrics band ---- */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,30px)}
+.metric{border-left:1px solid var(--line-dark);padding-left:22px}
+.metric .n{font-family:var(--serif);font-size:clamp(40px,4.6vw,60px);line-height:1;color:#fff}
+.metric .l{margin-top:13px;font-size:14.5px;color:#9fc0c8;line-height:1.42}
+
+/* ---- Services ---- */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:16px;overflow:hidden}
+.svc{background:var(--paper-card);padding:34px 30px 30px;min-height:236px;cursor:pointer;
+  display:flex;flex-direction:column;transition:background .3s var(--ease),transform .3s var(--ease)}
+.svc:hover{background:#fff}
+.svc .n{font-family:var(--mono);font-size:12px;color:var(--teal-bright);margin-bottom:20px}
+.svc h3{font-size:22px;color:var(--ink);margin-bottom:11px;font-weight:500}
+.svc p{font-size:14.5px;line-height:1.62;color:var(--muted);flex:1}
+.svc .more{margin-top:18px;font-size:13px;font-weight:500;color:var(--teal);display:inline-flex;gap:6px;align-items:center}
+.svc:hover .more{gap:10px}
+
+/* ---- Mirada Panorámica (flagship) ---- */
+.mirada{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#0c2637,#123b52);
+  color:#eaf3f4;padding:clamp(40px,5vw,64px);box-shadow:var(--shadow-lg)}
+.mirada::before{content:"";position:absolute;inset:0;background:url('assets/logo.jpeg') no-repeat;
+  background-size:340px;background-position:right -70px top -70px;opacity:.06;mix-blend-mode:screen}
+.mirada__grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,4vw,56px);align-items:center}
+.mirada h2{font-size:clamp(28px,3.4vw,46px);color:#fff;margin:16px 0 0;text-wrap:balance}
+.mirada p{margin-top:20px;font-size:16.5px;line-height:1.7;color:#b7ccd2;max-width:34em}
+.mirada__facts{display:flex;flex-direction:column;gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:16px;overflow:hidden}
+.mirada__fact{background:rgba(255,255,255,.03);padding:22px 24px;display:flex;gap:18px;align-items:baseline}
+.mirada__fact .k{font-family:var(--serif);font-size:32px;color:var(--teal-glow);line-height:1;flex:none;min-width:2.4em}
+.mirada__fact .v{font-size:14.5px;line-height:1.5;color:#cfe0e4}
+
+/* ---- Sectors ---- */
+.sectors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sector{display:flex;align-items:center;gap:15px;padding:22px 24px;border:1px solid var(--line-2);border-radius:13px;background:#fff;
+  transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+.sector:hover{border-color:var(--teal-bright);transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+.sector .dot{width:9px;height:9px;border-radius:50%;background:var(--teal-bright);flex:none}
+.sector b{font-size:16px;font-weight:500;color:#243840}
+
+/* ---- Method ---- */
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,40px)}
+.step{position:relative}
+.step .n{font-family:var(--serif);font-size:46px;color:#cbbfa8;line-height:1;margin-bottom:8px}
+.section--paper2 .step .rule{height:1px;background:#d7d3c8;margin:0 0 18px}
+.step h3{font-size:21px;color:var(--ink);margin-bottom:9px;font-weight:500}
+.step p{font-size:14.5px;line-height:1.6;color:var(--muted)}
+
+/* ---- Quote ---- */
+.quote{text-align:center;max-width:1000px;margin:0 auto}
+.quote .mark{font-family:var(--serif);font-size:84px;line-height:.4;color:var(--teal-bright);height:40px}
+.quote p{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.6vw,48px);line-height:1.22;color:#fff;text-wrap:balance;margin-top:6px}
+.quote .by{margin-top:26px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-glow)}
+
+/* ---- Events ---- */
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.event{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;background:#fff;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.event:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.event__img{aspect-ratio:3/2;background:linear-gradient(135deg,#123b52,#0d2636);position:relative;overflow:hidden}
+.event__img .glyph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:40px;color:rgba(127,227,229,.35)}
+.event__body{padding:20px 22px 24px}
+.event .meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-bottom:9px}
+.event h3{font-size:18px;line-height:1.28;color:var(--ink);font-weight:500}
+
+/* ---- Team ---- */
+.team__lead{display:grid;grid-template-columns:.72fr 1.28fr;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);border-radius:20px;overflow:hidden;margin-bottom:26px}
+.team__lead .ph{position:relative;min-height:380px;background:radial-gradient(120% 100% at 50% 0%,#1a5470,#0d2636);overflow:hidden}
+.team__lead .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:34% 6%;filter:grayscale(1) contrast(1.05);transition:transform .7s var(--ease)}
+.team__lead:hover .ph img{transform:scale(1.04)}
+.team__lead .info{padding:clamp(30px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+.team__lead .role{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--teal-bright);margin-bottom:12px}
+.team__lead h3{font-size:clamp(28px,3vw,40px);color:#fff;margin-bottom:14px}
+.team__lead p{font-size:15.5px;line-height:1.68;color:#a9c2c9;max-width:38em}
+.team__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.member{display:flex;gap:20px;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);border-radius:16px;padding:24px;transition:border-color .3s var(--ease)}
+.member:hover{border-color:rgba(75,191,194,.45)}
+.member .av{width:88px;height:88px;border-radius:14px;flex:none;background:radial-gradient(120% 100% at 50% 0%,#1a5470,#12313f);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:26px;color:var(--teal-glow)}
+.member h4{font-family:var(--serif);font-size:19px;color:#fff;font-weight:500}
+.member .role{font-family:var(--mono);font-size:11px;color:var(--teal-bright);margin:6px 0 9px}
+.member p{font-size:13.5px;line-height:1.55;color:#a9c2c9}
+
+/* ---- Insights ---- */
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:16px;overflow:hidden}
+.insight{background:var(--paper-card);padding:30px 28px 32px;cursor:pointer;transition:background .3s var(--ease)}
+.insight:hover{background:#fff}
+.insight .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:22px}
+.insight .top .date{color:var(--muted-3)}
+.insight h3{font-size:20px;line-height:1.26;color:var(--ink);font-weight:500}
+.insight .read{margin-top:20px;font-size:13.5px;color:var(--teal)}
+
+/* ---- Contact ---- */
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,60px);align-items:start}
+.contact__title{font-size:clamp(32px,3.7vw,50px);color:var(--ink);margin-top:18px}
+.contact__rows{margin-top:32px;display:flex;flex-direction:column;gap:15px}
+.crow{display:flex;gap:14px;align-items:baseline}
+.crow .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-3);width:92px;flex:none}
+.crow .v{font-size:16px;color:#243840}
+.form{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(26px,3vw,36px);box-shadow:var(--shadow-md)}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{display:block;margin-top:15px}
+.field:first-child,.form .row .field{margin-top:0}
+.field span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.field input,.field textarea{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;
+  border:1px solid #d9d5cc;border-radius:11px;background:var(--paper);color:var(--ink);transition:border-color .2s var(--ease),background .2s var(--ease)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--teal-bright);background:#fff}
+.field textarea{resize:vertical;min-height:104px}
+.form__actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px}
+.form__note{margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--muted-3)}
+
+/* ---- Footer ---- */
+.site-footer{background:var(--navy-deep);color:#8fb0ba}
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding:56px 0 40px}
+.footer__brand{display:flex;align-items:center;gap:13px;color:#fff;margin-bottom:16px}
+.footer__brand img{width:36px;height:36px;border-radius:9px}
+.footer__brand b{font-family:var(--serif);font-size:20px;font-weight:500}
+.footer__brand .t{font-size:12.5px;color:#7f9ea8;font-family:var(--sans)}
+.footer p{font-size:14px;line-height:1.6;color:#8fb0ba;max-width:26em}
+.footer h5{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:14px}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer ul a{color:#a9c2c9;font-size:14.5px}
+.footer ul a:hover{color:#fff}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.09);padding:22px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:#6f909b}
+
+/* ---- Modal ---- */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(8,26,38,.55);backdrop-filter:blur(5px);
+  display:flex;align-items:flex-start;justify-content:center;padding:6vh 20px;overflow:auto;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.modal.open{opacity:1;pointer-events:auto}
+.modal__panel{background:var(--paper);max-width:720px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);transform:translateY(20px) scale(.98);transition:transform .32s var(--ease)}
+.modal.open .modal__panel{transform:none}
+.modal__head{background:var(--navy);color:#fff;padding:32px 40px 28px;position:relative}
+.modal__head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:12px}
+.modal__head h3{font-size:27px;line-height:1.16;max-width:22em;color:#fff;font-weight:500}
+.modal__close{position:absolute;top:20px;right:22px;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:none;color:#fff;font-size:16px;cursor:pointer;transition:background .2s var(--ease)}
+.modal__close:hover{background:rgba(255,255,255,.14)}
+.modal__body{padding:30px 40px 36px;display:flex;flex-direction:column;gap:22px}
+.modal__body .blk .bt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:11px}
+.modal__body .blk p{font-size:15.5px;line-height:1.66;color:#3d4d54}
+.modal__body .blk .li{display:flex;gap:12px;align-items:flex-start;margin-top:10px}
+.modal__body .blk .li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal-bright);margin-top:8px;flex:none}
+.modal__body .blk .li span{font-size:15px;line-height:1.55;color:#3d4d54}
+.modal__body .note{font-family:var(--mono);font-size:12px;color:var(--muted-3);border-top:1px dashed #d7d3c8;padding-top:14px}
+
+/* ---- Reveal animation ---- */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+[data-reveal].is-visible{opacity:1;transform:none}
+
+/* ---- Mobile menu panel ---- */
+.mobile-menu{position:fixed;inset:0;z-index:110;background:var(--paper);transform:translateX(100%);
+  transition:transform .35s var(--ease);display:flex;flex-direction:column;padding:20px 34px 40px}
+.mobile-menu.open{transform:none}
+.mobile-menu__top{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line)}
+.mobile-menu nav{display:flex;flex-direction:column;gap:4px;margin-top:24px}
+.mobile-menu nav a{font-family:var(--serif);font-size:30px;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line-2)}
+.mobile-menu .btn{margin-top:26px;justify-content:center}
+
+/* ---- Responsive ---- */
+@media (max-width:1000px){
+  .hero__grid,.context__grid,.about__grid,.mirada__grid,.contact__grid{grid-template-columns:1fr}
+  .hero__panel{aspect-ratio:16/11;max-height:420px}
+  .about__media{max-width:420px}
+  .metrics{grid-template-columns:repeat(2,1fr);gap:34px 24px}
+  .svc-grid,.insights{grid-template-columns:repeat(2,1fr)}
+  .method{grid-template-columns:repeat(2,1fr);gap:36px 30px}
+  .sectors,.events{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr;gap:30px}
+  .team__lead{grid-template-columns:1fr}
+  .team__lead .ph{min-height:320px}
+  .team__grid{grid-template-columns:1fr}
+  .footer__grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .container{padding-left:22px;padding-right:22px}
+  .nav-links{display:none}
+  .nav-actions .btn{display:none}
+  .menu-toggle{display:inline-flex}
+  .hero__meta span:nth-child(2){margin-left:0}
+  .svc-grid,.insights,.sectors,.events,.method,.contact__grid,.form .row{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .footer__grid{grid-template-columns:1fr}
+  .modal__head,.modal__body{padding-left:26px;padding-right:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+
+/* ---- keyframes ---- */
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes word{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pulse{0%,100%{opacity:1;r:6}50%{opacity:.35;r:9}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container nav">
+    <a href="#top" class="brand"><img src="assets/logo.jpeg" alt="MasterMinds"><b>MasterMinds</b></a>
+    <nav class="nav-links" id="navLinks"></nav>
+    <div class="nav-actions">
+      <button class="lang-btn" id="langBtn">EN</button>
+      <a href="#contacto" class="btn btn--primary btn--sm" data-i18n="cta_meeting">Agendar reunión</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu__top">
+    <a href="#top" class="brand"><img src="assets/logo.jpeg" alt="MasterMinds"><b>MasterMinds</b></a>
+    <button class="menu-toggle" id="menuClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav id="mobileNav"></nav>
+  <a href="#contacto" class="btn btn--primary" data-i18n="cta_meeting">Agendar reunión</a>
+</div>
+
+<main id="top"></main>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="modal">
+  <div class="modal__panel" id="modalPanel">
+    <div class="modal__head">
+      <button class="modal__close" id="modalClose" aria-label="Cerrar">✕</button>
+      <div class="tag" id="modalTag"></div>
+      <h3 id="modalTitle"></h3>
+    </div>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   MASTERMINDS · Content (ES / EN)
+   ============================================================ */
+const CONTENT = {
+  es:{
+    lang_other:'EN',
+    cta_meeting:'Agendar reunión',
+    nav:[
+      {l:'Enfoque',h:'#enfoque'},{l:'Servicios',h:'#servicios'},
+      {l:'Mirada Panorámica',h:'#mirada'},{l:'Método',h:'#metodo'},
+      {l:'Equipo',h:'#equipo'},{l:'Contacto',h:'#contacto'}
+    ],
+    hero_meta:['La Paz · Santa Cruz · Cochabamba','Inteligencia estratégica','Est. Bolivia'],
+    hero_kicker:'Análisis económico · coyuntural · político',
+    hero_a:'Leemos la economía boliviana — y la',
+    hero_em:'traducimos',
+    hero_b:'en decisiones.',
+    hero_sub:'Acompañamos a inversores, empresas líderes e instituciones con análisis de alto rigor para decidir con certeza en el entorno más difícil de leer de la región.',
+    hero_cta1:'Agendar una consulta',
+    hero_cta2:'Ver servicios',
+    hero_chart_lbl:'LECTURA DE LA ECONOMÍA',
+    hero_tag:'Convertimos el ruido en una lectura clara y accionable.',
+    hero_stats:[
+      {v:44,suf:'',l:'Años de experiencia'},
+      {v:16,suf:'',l:'Países y geografías'},
+      {v:350,suf:'+',l:'Líderes asesorados'}
+    ],
+    ticker:['Inflación','Tipo de cambio','Riesgo país','PIB','Reservas internacionales','Exportaciones','Inversión extranjera','Política fiscal','Coyuntura política','Sector privado','Crédito','Combustibles'],
+    ctx_kicker:'01 · El contexto',
+    ctx_title:'Bolivia es uno de los entornos más difíciles de leer de la región.',
+    ctx_sub:'Inflación, tipo de cambio, política y regulación se mueven al mismo tiempo. Para quien invierte o dirige, malinterpretar el ruido cuesta caro.',
+    ctx_viz_lbl:'VOLATILIDAD DEL ENTORNO',
+    enf_kicker:'02 · El enfoque',
+    enf_title:'Tres miradas que trabajan juntas para explicar no solo qué pasa, sino qué hacer.',
+    lenses:[
+      {n:'01',k:'Económico',d:'La estructura: inflación, crecimiento y desempeño sectorial que definen el terreno de juego.'},
+      {n:'02',k:'Coyuntural',d:'El momento: qué cambia hoy y por qué le importa directamente a su negocio.'},
+      {n:'03',k:'Político',d:'El poder: escenarios electorales, riesgo regulatorio y transiciones institucionales.'}
+    ],
+    about_kicker:'Nosotros',
+    about_title:'Décadas leyendo la economía boliviana — y traduciéndola para el mundo.',
+    about_p1:'MasterMinds es una firma boliviana de inteligencia estratégica. Conectamos a líderes empresariales con información exclusiva y análisis de profundidad — reuniendo a protagonistas de la política económica, expertos internacionales y referentes del mundo empresarial para anticipar tendencias y transformarlas en decisiones.',
+    about_p2:'Fundada y dirigida por Martin Rapp — economista de formación alemana con más de 40 años de trayectoria ejecutiva y 18 en directorios — combinamos rigor analítico, experiencia real de directorio y una red construida durante décadas al más alto nivel empresarial e institucional del país.',
+    about_caption_role:'Director Ejecutivo & Fundador',
+    creds:['Formación en Economía · Alemania','Director y Advisory Boards desde 2001','Programa de Liderazgo CAINCO','Renaissance Executive Forums · Santa Cruz','Presencia en foros AMCHAM y BRAQ'],
+    metrics:[
+      {v:44,suf:'',l:'Años de experiencia'},
+      {v:16,suf:'',l:'Países y geografías'},
+      {v:350,suf:'+',l:'Líderes empresariales asesorados'},
+      {v:18,suf:'',l:'Años en directorios'}
+    ],
+    serv_kicker:'03 · Servicios',
+    serv_title:'Análisis que se traduce en decisiones.',
+    serv_sub:'Cada servicio combina rigor técnico con una lectura real del terreno boliviano y regional.',
+    serv_more:'Ver más',
+    services:[
+      {n:'01',title:'Análisis Económico',desc:'Lectura macroeconómica y sectorial, proyecciones y escenarios que convierten datos complejos en decisiones claras.',
+        deliver:['Informe macroeconómico con proyecciones de inflación, tipo de cambio y crecimiento','Análisis sectorial a la medida de su industria','Escenarios base, optimista y de estrés','Recomendaciones accionables para su directorio'],who:'Inversores e instituciones que necesitan una lectura macro confiable.'},
+      {n:'02',title:'Análisis Coyuntural',desc:'Interpretación en tiempo real del entorno económico y su impacto directo sobre su negocio e inversiones.',
+        deliver:['Monitoreo del entorno económico en tiempo real','Alertas ante hechos que impactan su operación','Lectura del impacto sobre precios, costos y liquidez','Briefings periódicos para el equipo ejecutivo'],who:'Empresas que operan en un entorno cambiante y de alta incertidumbre.'},
+      {n:'03',title:'Análisis Político',desc:'Evaluación de riesgo político, escenarios electorales y regulatorios para anticipar cambios y proteger su capital.',
+        deliver:['Mapa de actores y escenarios electorales','Evaluación de riesgo regulatorio y normativo','Impacto político sobre inversiones y contratos','Escenarios de transición y sus consecuencias'],who:'Quienes evalúan riesgo político antes de comprometer capital.'},
+      {n:'04',title:'Asesoría Empresarial',desc:'Acompañamiento estratégico a directorios y equipos ejecutivos con métodos de gestión probados en 16 países.',
+        deliver:['Acompañamiento a directorios y comités','Diagnóstico estratégico y priorización','Métodos de gestión probados en 16 países','Seguimiento y ajuste de la ejecución'],who:'Directorios y equipos ejecutivos que buscan una mirada externa.'},
+      {n:'05',title:'Estudios de Factibilidad',desc:'Evaluación económica y financiera de proyectos e inversiones, del diagnóstico a la recomendación accionable.',
+        deliver:['Modelo económico-financiero del proyecto','Análisis de viabilidad y sensibilidad','Lectura regulatoria y del entorno','Recomendación de inversión fundamentada'],who:'Proyectos de inversión que requieren sustento económico riguroso.'},
+      {n:'06',title:'Programas de Liderazgo',desc:'Formación ejecutiva y foros de liderazgo que fortalecen la capacidad de decisión de sus líderes.',
+        deliver:['Programas y foros ejecutivos a la medida','Desarrollo de la capacidad de decisión','Intercambio entre pares del más alto nivel','Herramientas prácticas y accionables'],who:'Organizaciones que quieren fortalecer a sus líderes.'}
+    ],
+    mirada_kicker:'Iniciativa insignia',
+    mirada_title:'Mirada Panorámica',
+    mirada_p:'Nuestro espacio de conversación estratégica de alto nivel. Reunimos a más de 100 líderes empresariales, protagonistas de la política económica y autoridades para anticipar, en una sola sala, los escenarios del año que viene — y qué significan para cada decisión.',
+    mirada_facts:[
+      {k:'100+',v:'Líderes empresariales y autoridades en cada edición'},
+      {k:'3',v:'Miradas: económica, coyuntural y política, convergiendo'},
+      {k:'∞',v:'Perspectivas que convergen. Decisiones que trascienden.'}
+    ],
+    mirada_cta:'Solicitar una invitación',
+    sect_kicker:'Sectores',
+    sect_title:'Sectores donde nuestro análisis genera ventaja.',
+    sectors:['Banca y Finanzas','Energía y Minería','Agroindustria','Inversión Extranjera','Sector Público y Multilaterales','Manufactura e Industria'],
+    method_kicker:'04 · Metodología',
+    method_title:'Un proceso claro, de la pregunta a la acción.',
+    method:[
+      {n:'01',title:'Diagnóstico',desc:'Entendemos su objetivo, su exposición y las preguntas que realmente importan.'},
+      {n:'02',title:'Análisis',desc:'Procesamos datos económicos, coyunturales y políticos con marcos propios.'},
+      {n:'03',title:'Estrategia',desc:'Traducimos el análisis en escenarios y recomendaciones accionables.'},
+      {n:'04',title:'Acompañamiento',desc:'Acompañamos la ejecución y ajustamos ante cada cambio del entorno.'}
+    ],
+    quote:'Hacemos más exitosos a nuestros clientes a través de métodos ingeniosos de gestión.',
+    quote_by:'Martin Rapp · Director Ejecutivo',
+    events_kicker:'Eventos',
+    events_title:'Presentes donde se decide la economía del país.',
+    events_sub:'Foros, directorios y encuentros donde compartimos análisis con líderes empresariales y autoridades.',
+    events:[
+      {meta:'La Paz · Cochabamba · Santa Cruz',title:'Perspectivas Económicas y Desafíos Empresariales'},
+      {meta:'AMCHAM Bolivia',title:'AMCHAM Business Forum'},
+      {meta:'CAINCO',title:'Programa de Liderazgo CAINCO'},
+      {meta:'Millennials CAINCO',title:'El rol del CEO en el contexto actual'},
+      {meta:'GCF Task Force · Santa Cruz',title:'Encuentro Técnico Regional'},
+      {meta:'Renaissance Executive Forums',title:'Forum Líder · Santa Cruz'}
+    ],
+    team_kicker:'Equipo',
+    team_title:'Experiencia que rara vez cabe en un CV.',
+    team_lead:{role:'Director Ejecutivo & Fundador',name:'Martin Rapp',bio:'Nacido en Alemania y economista de formación. Más de 40 años en cargos ejecutivos y 18 en directorios; subgerente general y director de bancos durante 14 años. Ha hecho más exitosos a sus clientes con métodos de gestión en 16 países y geografías. Lidera el Programa de Liderazgo de CAINCO y dirige el Forum Líder de Renaissance Executive Forums en Santa Cruz. Reconocido como uno de los economistas más influyentes de Bolivia.'},
+    team_rest:[
+      {name:'Análisis Económico',role:'Equipo senior',bio:'Especialistas en análisis macroeconómico y sectorial, proyecciones y modelación financiera al servicio de cada decisión.'},
+      {name:'Análisis Político',role:'Equipo senior',bio:'Enfocados en riesgo político, escenarios electorales y regulatorios para anticipar el cambio del entorno.'}
+    ],
+    ins_kicker:'Insights',
+    ins_title:'Perspectivas sobre Bolivia y la región.',
+    ins_link:'Suscribirse',
+    ins_read:'Leer',
+    insights:[
+      {tag:'Perspectivas',date:'2026',title:'Escenarios económicos para el próximo ciclo.',
+        lede:'Un adelanto de los escenarios que MasterMinds proyecta para el próximo ciclo económico.',body:['Desarrollamos las variables clave — inflación, tipo de cambio, reservas y crecimiento — y su interacción en distintos escenarios.','Incluye una lectura accionable para directorios e inversores.']},
+      {tag:'Riesgo Político',date:'2026',title:'Riesgo político y decisiones de inversión en Bolivia.',
+        lede:'Cómo el riesgo político condiciona las decisiones de inversión en Bolivia.',body:['Analizamos el mapa de actores, los escenarios electorales y su impacto sobre contratos e inversiones.','Cerramos con recomendaciones para anticipar cambios y proteger el capital.']},
+      {tag:'Coyuntura',date:'2026',title:'El año de la empresa privada: cómo leer el entorno.',
+        lede:'Una lectura del entorno y del rol de la empresa privada en el ciclo actual.',body:['Revisamos la coyuntura reciente y las oportunidades para el sector privado.','Incluye señales a monitorear en los próximos meses.']}
+    ],
+    contact_kicker:'Contacto',
+    contact_title:'Hablemos de su próxima decisión.',
+    contact_sub:'Cuéntenos su desafío. Preparamos una primera conversación sin costo para entender cómo podemos ayudar.',
+    contact_rows:[
+      {k:'Contacto',v:'Martin Rapp · Director Ejecutivo'},
+      {k:'Email',v:'contacto@masterminds.bo'},
+      {k:'Ubicación',v:'Santa Cruz de la Sierra, Bolivia'},
+      {k:'LinkedIn',v:'/company/mastermindsbol'}
+    ],
+    f_name:'Nombre',f_company:'Empresa',f_email:'Correo',f_msg:'¿En qué podemos ayudar?',
+    f_submit:'Enviar mensaje',f_more:'Escribir por email',
+    f_note:'Respondemos en menos de 48 horas hábiles.',
+    modal_deliver:'Qué entregamos',modal_who:'Ideal para',modal_cta:'Conversar sobre esto',
+    foot_tag:'Inteligencia estratégica · Bolivia',
+    foot_explore:'Explorar',foot_contact:'Contacto',
+    foot_rights:'© 2026 MasterMinds S.R.L. · Bolivia',
+    foot_slogan:'Perspectivas que convergen. Decisiones que trascienden.'
+  },
+  en:{
+    lang_other:'ES',
+    cta_meeting:'Book a meeting',
+    nav:[
+      {l:'Approach',h:'#enfoque'},{l:'Services',h:'#servicios'},
+      {l:'Panoramic View',h:'#mirada'},{l:'Method',h:'#metodo'},
+      {l:'Team',h:'#equipo'},{l:'Contact',h:'#contacto'}
+    ],
+    hero_meta:['La Paz · Santa Cruz · Cochabamba','Strategic intelligence','Est. Bolivia'],
+    hero_kicker:'Economic · situational · political analysis',
+    hero_a:'We read Bolivia’s economy — and',
+    hero_em:'translate it',
+    hero_b:'into decisions.',
+    hero_sub:'We guide investors, leading companies and institutions with high-rigor analysis to decide with confidence in the hardest environment to read in the region.',
+    hero_cta1:'Book a consultation',
+    hero_cta2:'See services',
+    hero_chart_lbl:'READING THE ECONOMY',
+    hero_tag:'We turn the noise into a clear, actionable reading.',
+    hero_stats:[
+      {v:44,suf:'',l:'Years of experience'},
+      {v:16,suf:'',l:'Countries & geographies'},
+      {v:350,suf:'+',l:'Leaders advised'}
+    ],
+    ticker:['Inflation','Exchange rate','Country risk','GDP','Intl. reserves','Exports','Foreign investment','Fiscal policy','Political outlook','Private sector','Credit','Fuel'],
+    ctx_kicker:'01 · The context',
+    ctx_title:'Bolivia is one of the hardest environments to read in the region.',
+    ctx_sub:'Inflation, exchange rate, politics and regulation all move at once. For those who invest or lead, misreading the noise is costly.',
+    ctx_viz_lbl:'ENVIRONMENT VOLATILITY',
+    enf_kicker:'02 · The approach',
+    enf_title:'Three lenses working together to explain not just what is happening, but what to do about it.',
+    lenses:[
+      {n:'01',k:'Economic',d:'The structure: inflation, growth and sector performance that define the playing field.'},
+      {n:'02',k:'Situational',d:'The moment: what changes today and why it matters directly to your business.'},
+      {n:'03',k:'Political',d:'Power: electoral scenarios, regulatory risk and institutional transitions.'}
+    ],
+    about_kicker:'About us',
+    about_title:'Decades reading Bolivia’s economy — and translating it for the world.',
+    about_p1:'MasterMinds is a Bolivian strategic-intelligence firm. We connect business leaders with exclusive information and in-depth analysis — bringing together economic-policy protagonists, international experts and business thought-leaders to anticipate trends and turn them into decisions.',
+    about_p2:'Founded and led by Martin Rapp — a German-trained economist with 40+ years of executive experience and 18 on boards — we combine analytical rigor, real board experience and a network built over decades at the highest business and institutional level in the country.',
+    about_caption_role:'Executive Director & Founder',
+    creds:['Economics training · Germany','Director & advisory boards since 2001','CAINCO Leadership Program','Renaissance Executive Forums · Santa Cruz','Present at AMCHAM & BRAQ forums'],
+    metrics:[
+      {v:44,suf:'',l:'Years of experience'},
+      {v:16,suf:'',l:'Countries & geographies'},
+      {v:350,suf:'+',l:'Business leaders advised'},
+      {v:18,suf:'',l:'Years on boards'}
+    ],
+    serv_kicker:'03 · Services',
+    serv_title:'Analysis that turns into decisions.',
+    serv_sub:'Every service pairs technical rigor with a real reading of the Bolivian and regional ground.',
+    serv_more:'See more',
+    services:[
+      {n:'01',title:'Economic Analysis',desc:'Macroeconomic and sector reading, forecasts and scenarios that turn complex data into clear decisions.',
+        deliver:['Macroeconomic report with inflation, FX and growth forecasts','Sector analysis tailored to your industry','Base, upside and stress scenarios','Actionable recommendations for your board'],who:'Investors and institutions that need a reliable macro reading.'},
+      {n:'02',title:'Situational Analysis',desc:'Real-time interpretation of the economic environment and its direct impact on your business and investments.',
+        deliver:['Real-time monitoring of the economic environment','Alerts on events that affect your operation','Reading of the impact on prices, costs and liquidity','Regular briefings for the executive team'],who:'Companies operating in a shifting, high-uncertainty environment.'},
+      {n:'03',title:'Political Analysis',desc:'Political-risk assessment, electoral and regulatory scenarios to anticipate change and protect your capital.',
+        deliver:['Map of actors and electoral scenarios','Regulatory and legal risk assessment','Political impact on investments and contracts','Transition scenarios and their consequences'],who:'Those assessing political risk before committing capital.'},
+      {n:'04',title:'Business Advisory',desc:'Strategic guidance for boards and executive teams, with management methods proven across 16 countries.',
+        deliver:['Support for boards and committees','Strategic diagnosis and prioritization','Management methods proven across 16 countries','Follow-up and adjustment of execution'],who:'Boards and executive teams seeking an outside view.'},
+      {n:'05',title:'Feasibility Studies',desc:'Economic and financial evaluation of projects and investments, from diagnosis to actionable recommendation.',
+        deliver:['Economic-financial model of the project','Viability and sensitivity analysis','Regulatory and environment reading','Well-founded investment recommendation'],who:'Investment projects that need rigorous economic grounding.'},
+      {n:'06',title:'Leadership Programs',desc:'Executive training and leadership forums that strengthen your leaders’ capacity to decide.',
+        deliver:['Tailored executive programs and forums','Building decision-making capacity','Peer exchange at the highest level','Practical, actionable tools'],who:'Organizations that want to strengthen their leaders.'}
+    ],
+    mirada_kicker:'Flagship initiative',
+    mirada_title:'Panoramic View',
+    mirada_p:'Our high-level strategic conversation. We bring together 100+ business leaders, economic-policy protagonists and authorities to anticipate, in a single room, the scenarios of the year ahead — and what they mean for every decision.',
+    mirada_facts:[
+      {k:'100+',v:'Business leaders and authorities at each edition'},
+      {k:'3',v:'Lenses: economic, situational and political, converging'},
+      {k:'∞',v:'Converging perspectives. Decisions that transcend.'}
+    ],
+    mirada_cta:'Request an invitation',
+    sect_kicker:'Sectors',
+    sect_title:'Sectors where our analysis creates an edge.',
+    sectors:['Banking & Finance','Energy & Mining','Agribusiness','Foreign Investment','Public Sector & Multilaterals','Manufacturing & Industry'],
+    method_kicker:'04 · Method',
+    method_title:'A clear process, from question to action.',
+    method:[
+      {n:'01',title:'Diagnosis',desc:'We understand your goal, your exposure and the questions that truly matter.'},
+      {n:'02',title:'Analysis',desc:'We process economic, situational and political data with proprietary frameworks.'},
+      {n:'03',title:'Strategy',desc:'We translate the analysis into scenarios and actionable recommendations.'},
+      {n:'04',title:'Support',desc:'We support execution and adjust to every shift in the environment.'}
+    ],
+    quote:'We make our clients more successful through ingenious management methods.',
+    quote_by:'Martin Rapp · Executive Director',
+    events_kicker:'Events',
+    events_title:'Present where the country’s economy is decided.',
+    events_sub:'Forums, boards and gatherings where we share analysis with business leaders and authorities.',
+    events:[
+      {meta:'La Paz · Cochabamba · Santa Cruz',title:'Economic Outlook & Business Challenges'},
+      {meta:'AMCHAM Bolivia',title:'AMCHAM Business Forum'},
+      {meta:'CAINCO',title:'CAINCO Leadership Program'},
+      {meta:'Millennials CAINCO',title:'The role of the CEO in today’s context'},
+      {meta:'GCF Task Force · Santa Cruz',title:'Regional Technical Meeting'},
+      {meta:'Renaissance Executive Forums',title:'Forum Líder · Santa Cruz'}
+    ],
+    team_kicker:'Team',
+    team_title:'Experience that rarely fits on a CV.',
+    team_lead:{role:'Executive Director & Founder',name:'Martin Rapp',bio:'German-born, trained as an economist. 40+ years in executive roles and 18 on boards; deputy general manager and bank director for 14 years. He has made his clients more successful with management methods across 16 countries and geographies. He leads the CAINCO Leadership Program and directs the Renaissance Executive Forums’ Forum Líder in Santa Cruz. Recognized as one of Bolivia’s most influential economists.'},
+    team_rest:[
+      {name:'Economic Analysis',role:'Senior team',bio:'Specialists in macroeconomic and sector analysis, forecasting and financial modeling in service of every decision.'},
+      {name:'Political Analysis',role:'Senior team',bio:'Focused on political risk, electoral and regulatory scenarios to anticipate shifts in the environment.'}
+    ],
+    ins_kicker:'Insights',
+    ins_title:'Perspectives on Bolivia and the region.',
+    ins_link:'Subscribe',
+    ins_read:'Read',
+    insights:[
+      {tag:'Outlook',date:'2026',title:'Economic scenarios for the next cycle.',
+        lede:'A preview of the scenarios MasterMinds projects for the next economic cycle.',body:['We develop the key variables — inflation, FX, reserves and growth — and their interaction across scenarios.','It includes an actionable reading for boards and investors.']},
+      {tag:'Political Risk',date:'2026',title:'Political risk and investment decisions in Bolivia.',
+        lede:'How political risk shapes investment decisions in Bolivia.',body:['We analyze the map of actors, electoral scenarios and their impact on contracts and investments.','We close with recommendations to anticipate change and protect capital.']},
+      {tag:'Situation',date:'2026',title:'The year of private enterprise: how to read the environment.',
+        lede:'A reading of the environment and the role of private enterprise in the current cycle.',body:['We review the recent situation and the opportunities for the private sector.','It includes signals to monitor in the coming months.']}
+    ],
+    contact_kicker:'Contact',
+    contact_title:'Let’s talk about your next decision.',
+    contact_sub:'Tell us your challenge. We’ll set up a first conversation at no cost to understand how we can help.',
+    contact_rows:[
+      {k:'Contact',v:'Martin Rapp · Executive Director'},
+      {k:'Email',v:'contacto@masterminds.bo'},
+      {k:'Location',v:'Santa Cruz de la Sierra, Bolivia'},
+      {k:'LinkedIn',v:'/company/mastermindsbol'}
+    ],
+    f_name:'Name',f_company:'Company',f_email:'Email',f_msg:'How can we help?',
+    f_submit:'Send message',f_more:'Write by email',
+    f_note:'We reply within 48 business hours.',
+    modal_deliver:'What we deliver',modal_who:'Ideal for',modal_cta:'Talk about this',
+    foot_tag:'Strategic intelligence · Bolivia',
+    foot_explore:'Explore',foot_contact:'Contact',
+    foot_rights:'© 2026 MasterMinds S.R.L. · Bolivia',
+    foot_slogan:'Converging perspectives. Decisions that transcend.'
+  }
+};
+
+/* ============================================================
+   Render
+   ============================================================ */
+let LANG = 'es';
+const $ = (s,r=document)=>r.querySelector(s);
+const el = (tag,cls,html)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n;};
+const esc = (s)=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function render(){
+  const c = CONTENT[LANG];
+  document.documentElement.lang = LANG;
+  $('#langBtn').textContent = c.lang_other;
+
+  // nav
+  $('#navLinks').innerHTML = c.nav.map(n=>`<a class="nav-link" href="${n.h}">${esc(n.l)}</a>`).join('');
+  $('#mobileNav').innerHTML = c.nav.map(n=>`<a href="${n.h}" data-close>${esc(n.l)}</a>`).join('');
+  document.querySelectorAll('[data-i18n="cta_meeting"]').forEach(a=>a.textContent=c.cta_meeting);
+
+  // main
+  $('#top').innerHTML = `
+  <!-- HERO -->
+  <section class="hero"><div class="container">
+    <div class="hero__meta" data-reveal>${c.hero_meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div>
+    <div class="hero__grid">
+      <div data-reveal>
+        <div class="eyebrow">${esc(c.hero_kicker)}</div>
+        <h1 class="hero__title" style="margin-top:22px">${esc(c.hero_a)} <em>${esc(c.hero_em)}</em> ${esc(c.hero_b)}</h1>
+        <p class="hero__sub">${esc(c.hero_sub)}</p>
+        <div class="hero__cta">
+          <a href="#contacto" class="btn btn--primary">${esc(c.hero_cta1)}</a>
+          <a href="#servicios" class="btn btn--ghost">${esc(c.hero_cta2)}</a>
+        </div>
+        <div class="hero__stats">${c.hero_stats.map(s=>`<div class="stat-chip"><div class="n"><span data-count="${s.v}">0</span>${esc(s.suf)}</div><div class="l">${esc(s.l)}</div></div>`).join('')}</div>
+      </div>
+      <div data-reveal class="hero__panel">
+        <div class="lbl">${esc(c.hero_chart_lbl)}</div>
+        <div class="spin"></div>
+        <img class="knot" src="assets/logo.jpeg" alt="">
+        <svg class="chart" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4bbfc2" stop-opacity=".36"/><stop offset="1" stop-color="#4bbfc2" stop-opacity="0"/></linearGradient></defs>
+          <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,.08)"/>
+          <line x1="0" y1="160" x2="400" y2="160" stroke="rgba(255,255,255,.08)"/>
+          <line x1="0" y1="230" x2="400" y2="230" stroke="rgba(255,255,255,.08)"/>
+          <path d="M20,235 L70,205 L120,215 L170,155 L220,170 L270,115 L320,130 L380,58 L380,300 L20,300 Z" fill="url(#hg)"/>
+          <path class="draw" d="M20,235 L70,205 L120,215 L170,155 L220,170 L270,115 L320,130 L380,58" fill="none" stroke="#5fd0d2" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:640;stroke-dashoffset:640;animation:draw 2.4s cubic-bezier(.4,.7,.3,1) .3s forwards"/>
+          <circle cx="380" cy="58" r="6" fill="#7fe3e5" style="animation:pulse 2s ease-in-out 2.6s infinite"/>
+        </svg>
+        <div class="tag">${esc(c.hero_tag)}</div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- TICKER -->
+  <div class="ticker"><div class="ticker__track">${
+    [0,1].map(()=>c.ticker.map(t=>`<span class="ticker__item">${esc(t)}</span>`).join('')).join('')
+  }</div></div>
+
+  <!-- CONTEXT -->
+  <section class="section section--dark"><div class="container">
+    <div class="context__grid">
+      <div data-reveal>
+        <div class="eyebrow">${esc(c.ctx_kicker)}</div>
+        <h2 style="margin-top:18px">${esc(c.ctx_title)}</h2>
+        <p class="lead" style="margin-top:22px">${esc(c.ctx_sub)}</p>
+      </div>
+      <div data-reveal class="viz">
+        <div class="lbl">${esc(c.ctx_viz_lbl)}</div>
+        <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+          <defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4bbfc2" stop-opacity=".24"/><stop offset="1" stop-color="#4bbfc2" stop-opacity="0"/></linearGradient></defs>
+          <path d="M10,180 L45,120 L80,205 L115,90 L150,225 L185,140 L220,240 L255,110 L290,200 L325,70 L365,160 L365,300 L10,300 Z" fill="url(#vg)"/>
+          <path class="draw" d="M10,180 L45,120 L80,205 L115,90 L150,225 L185,140 L220,240 L255,110 L290,200 L325,70 L365,160" fill="none" stroke="#5fd0d2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 3s cubic-bezier(.4,.7,.3,1) .3s forwards"/>
+        </svg>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ENFOQUE -->
+  <section id="enfoque" class="section"><div class="container">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow">${esc(c.enf_kicker)}</div>
+      <h2>${esc(c.enf_title)}</h2>
+    </div>
+    <div class="grid-3">${c.lenses.map(l=>`
+      <div class="lens" data-reveal><div class="rule"></div><div class="n">${esc(l.n)}</div><h3>${esc(l.k)}</h3><p>${esc(l.d)}</p></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="section section--paper2"><div class="container">
+    <div class="about__grid">
+      <div data-reveal class="about__media">
+        <img src="assets/martin-rapp-bw.png" alt="Martin Rapp">
+        <div class="cap"><div class="nm">Martin Rapp</div><div class="rl">${esc(c.about_caption_role)}</div></div>
+      </div>
+      <div data-reveal class="about__body">
+        <div class="eyebrow">${esc(c.about_kicker)}</div>
+        <h2 style="margin-top:16px">${esc(c.about_title)}</h2>
+        <p>${esc(c.about_p1)}</p>
+        <p>${esc(c.about_p2)}</p>
+        <div class="creds">${c.creds.map(x=>`<span class="cred">${esc(x)}</span>`).join('')}</div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- METRICS -->
+  <section class="section section--dark" style="padding-top:clamp(60px,7vw,84px);padding-bottom:clamp(60px,7vw,84px)"><div class="container">
+    <div class="metrics">${c.metrics.map(m=>`
+      <div class="metric" data-reveal><div class="n"><span data-count="${m.v}">0</span>${esc(m.suf)}</div><div class="l">${esc(m.l)}</div></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="section"><div class="container">
+    <div class="sec-head" data-reveal style="max-width:none;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+      <div style="max-width:30rem"><div class="eyebrow">${esc(c.serv_kicker)}</div><h2 style="margin-top:16px">${esc(c.serv_title)}</h2></div>
+      <p class="lead" style="max-width:24rem;margin:0">${esc(c.serv_sub)}</p>
+    </div>
+    <div class="svc-grid">${c.services.map((s,i)=>`
+      <div class="svc" data-reveal data-modal="service" data-i="${i}">
+        <div class="n">${esc(s.n)}</div><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p>
+        <div class="more">${esc(c.serv_more)} <span>→</span></div>
+      </div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- MIRADA PANORÁMICA -->
+  <section id="mirada" class="section" style="padding-top:0"><div class="container">
+    <div class="mirada" data-reveal>
+      <div class="mirada__grid">
+        <div>
+          <div class="eyebrow" style="color:var(--teal-bright)">${esc(c.mirada_kicker)}</div>
+          <h2>${esc(c.mirada_title)}</h2>
+          <p>${esc(c.mirada_p)}</p>
+          <a href="#contacto" class="btn btn--light" style="margin-top:28px">${esc(c.mirada_cta)} →</a>
+        </div>
+        <div class="mirada__facts">${c.mirada_facts.map(f=>`
+          <div class="mirada__fact"><div class="k">${esc(f.k)}</div><div class="v">${esc(f.v)}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- SECTORES -->
+  <section id="sectores" class="section" style="padding-top:0"><div class="container">
+    <div class="sec-head" data-reveal><div class="eyebrow">${esc(c.sect_kicker)}</div><h2>${esc(c.sect_title)}</h2></div>
+    <div class="sectors">${c.sectors.map(x=>`
+      <div class="sector" data-reveal><span class="dot"></span><b>${esc(x)}</b></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- METODOLOGIA -->
+  <section id="metodo" class="section section--paper2"><div class="container">
+    <div class="sec-head" data-reveal><div class="eyebrow">${esc(c.method_kicker)}</div><h2>${esc(c.method_title)}</h2></div>
+    <div class="method">${c.method.map(s=>`
+      <div class="step" data-reveal><div class="n">${esc(s.n)}</div><div class="rule"></div><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- QUOTE -->
+  <section class="section section--dark"><div class="container">
+    <div class="quote" data-reveal>
+      <div class="mark">&ldquo;</div>
+      <p>${esc(c.quote)}</p>
+      <div class="by">${esc(c.quote_by)}</div>
+    </div>
+  </div></section>
+
+  <!-- EVENTOS -->
+  <section id="eventos" class="section"><div class="container">
+    <div class="sec-head" data-reveal style="max-width:none;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+      <div style="max-width:26rem"><div class="eyebrow">${esc(c.events_kicker)}</div><h2 style="margin-top:16px">${esc(c.events_title)}</h2></div>
+      <p class="lead" style="max-width:24rem;margin:0">${esc(c.events_sub)}</p>
+    </div>
+    <div class="events">${c.events.map(ev=>`
+      <div class="event" data-reveal><div class="event__img"><div class="glyph">◆</div></div>
+        <div class="event__body"><div class="meta">${esc(ev.meta)}</div><h3>${esc(ev.title)}</h3></div></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" class="section section--dark"><div class="container">
+    <div class="sec-head" data-reveal><div class="eyebrow">${esc(c.team_kicker)}</div><h2 style="color:#fff">${esc(c.team_title)}</h2></div>
+    <div class="team__lead" data-reveal>
+      <div class="ph"><img src="assets/martin-rapp-bw.png" alt="Martin Rapp"></div>
+      <div class="info">
+        <div class="role">${esc(c.team_lead.role)}</div>
+        <h3>${esc(c.team_lead.name)}</h3>
+        <p>${esc(c.team_lead.bio)}</p>
+        <a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" rel="noopener" style="margin-top:22px;color:var(--teal-glow);font-size:14px;font-weight:500">LinkedIn →</a>
+      </div>
+    </div>
+    <div class="team__grid">${c.team_rest.map(p=>`
+      <div class="member" data-reveal><div class="av">◇</div><div><h4>${esc(p.name)}</h4><div class="role">${esc(p.role)}</div><p>${esc(p.bio)}</p></div></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- INSIGHTS -->
+  <section id="insights" class="section"><div class="container">
+    <div class="sec-head" data-reveal style="max-width:none;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+      <div><div class="eyebrow">${esc(c.ins_kicker)}</div><h2 style="margin-top:16px">${esc(c.ins_title)}</h2></div>
+      <a href="#contacto" style="font-weight:500">${esc(c.ins_link)} →</a>
+    </div>
+    <div class="insights">${c.insights.map((a,i)=>`
+      <div class="insight" data-reveal data-modal="insight" data-i="${i}">
+        <div class="top"><span>${esc(a.tag)}</span><span class="date">${esc(a.date)}</span></div>
+        <h3>${esc(a.title)}</h3><div class="read">${esc(c.ins_read)} →</div></div>`).join('')}
+    </div>
+  </div></section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section section--paper2"><div class="container">
+    <div class="contact__grid">
+      <div data-reveal>
+        <div class="eyebrow">${esc(c.contact_kicker)}</div>
+        <h2 class="contact__title">${esc(c.contact_title)}</h2>
+        <p class="lead" style="margin-top:20px;max-width:30em">${esc(c.contact_sub)}</p>
+        <div class="contact__rows">${c.contact_rows.map(r=>`
+          <div class="crow"><span class="k">${esc(r.k)}</span><span class="v">${
+            r.k==='Email'?`<a href="mailto:contacto@masterminds.bo">${esc(r.v)}</a>`:
+            r.k==='LinkedIn'?`<a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" rel="noopener">${esc(r.v)}</a>`:
+            esc(r.v)}</span></div>`).join('')}
+        </div>
+      </div>
+      <form data-reveal class="form" onsubmit="return false">
+        <div class="row">
+          <label class="field"><span>${esc(c.f_name)}</span><input type="text" autocomplete="name"></label>
+          <label class="field"><span>${esc(c.f_company)}</span><input type="text" autocomplete="organization"></label>
+        </div>
+        <label class="field"><span>${esc(c.f_email)}</span><input type="email" autocomplete="email"></label>
+        <label class="field"><span>${esc(c.f_msg)}</span><textarea rows="4"></textarea></label>
+        <div class="form__actions">
+          <button class="btn btn--primary" type="submit">${esc(c.f_submit)}</button>
+          <a href="mailto:contacto@masterminds.bo" class="btn btn--ghost">${esc(c.f_more)} →</a>
+        </div>
+        <div class="form__note">${esc(c.f_note)}</div>
+      </form>
+    </div>
+  </div></section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer"><div class="container">
+    <div class="footer__grid">
+      <div data-reveal>
+        <div class="footer__brand"><img src="assets/logo.jpeg" alt="MasterMinds"><div><b>MasterMinds</b><div class="t">${esc(c.foot_tag)}</div></div></div>
+        <p>${esc(c.foot_slogan)}</p>
+      </div>
+      <div data-reveal><h5>${esc(c.foot_explore)}</h5><ul>${c.nav.map(n=>`<li><a href="${n.h}">${esc(n.l)}</a></li>`).join('')}</ul></div>
+      <div data-reveal><h5>${esc(c.foot_contact)}</h5><ul>
+        <li><a href="mailto:contacto@masterminds.bo">contacto@masterminds.bo</a></li>
+        <li><a href="https://bo.linkedin.com/company/mastermindsbol" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li>Santa Cruz de la Sierra, Bolivia</li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom"><span>${esc(c.foot_rights)}</span><span>${esc(c.foot_slogan)}</span></div>
+  </div></footer>`;
+
+  setupReveal();
+  setupCounters();
+  setupModalTriggers();
+  setupActiveNav();
+}
+
+/* ============================================================
+   Interactions
+   ============================================================ */
+let _revealIO=null;
+function setupReveal(){
+  const nodes=[...document.querySelectorAll('[data-reveal]')];
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){nodes.forEach(n=>n.classList.add('is-visible'));return;}
+  if(_revealIO)_revealIO.disconnect();
+  _revealIO=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');_revealIO.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  nodes.forEach(n=>{
+    const r=n.getBoundingClientRect();
+    if(r.top < (window.innerHeight||800)*0.92) n.classList.add('is-visible'); // already in view
+    else _revealIO.observe(n);
+  });
+}
+
+let _counted=false;
+function setupCounters(){
+  const run=(el)=>{
+    const target=parseFloat(el.getAttribute('data-count'))||0;const dur=1500,t0=performance.now();
+    const tick=(now)=>{const p=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e);if(p<1)requestAnimationFrame(tick);};
+    requestAnimationFrame(tick);
+  };
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(c=>io.observe(c));
+}
+
+function setupActiveNav(){
+  const links=[...document.querySelectorAll('.nav-link')];
+  const map=new Map();
+  links.forEach(a=>{const id=a.getAttribute('href').slice(1);const sec=document.getElementById(id);if(sec)map.set(sec,a);});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=map.get(e.target);if(a)a.classList.add('active');}});},{rootMargin:'-45% 0px -50% 0px'});
+  map.forEach((a,sec)=>io.observe(sec));
+}
+
+/* Modals */
+function openModal(type,i){
+  const c=CONTENT[LANG];let tag='',title='',blocks=[];
+  const P=(t,x)=>({t,type:'p',x});const L=(t,items)=>({t,type:'list',items});const N=(x)=>({type:'note',x});
+  if(type==='service'){const s=c.services[i];tag=c.serv_kicker.replace(/^\d+\s*·\s*/,'');title=s.title;
+    blocks=[P('',s.desc),L(c.modal_deliver,s.deliver),P(c.modal_who,s.who)];}
+  else{const a=c.insights[i];tag=a.tag+' · '+a.date;title=a.title;
+    blocks=[P('',a.lede),...a.body.map(b=>P('',b))];}
+  $('#modalTag').textContent=tag;$('#modalTitle').textContent=title;
+  $('#modalBody').innerHTML=blocks.map(b=>{
+    if(b.type==='p')return `<div class="blk">${b.t?`<div class="bt">${esc(b.t)}</div>`:''}<p>${esc(b.x)}</p></div>`;
+    if(b.type==='list')return `<div class="blk">${b.t?`<div class="bt">${esc(b.t)}</div>`:''}${b.items.map(it=>`<div class="li"><span>${esc(it)}</span></div>`).join('')}</div>`;
+    return `<div class="note">${esc(b.x)}</div>`;
+  }).join('')+`<div><a href="#contacto" class="btn btn--primary" id="modalCta">${esc(c.modal_cta)} →</a></div>`;
+  $('#modal').classList.add('open');document.body.style.overflow='hidden';
+  $('#modalCta').addEventListener('click',closeModal);
+}
+function closeModal(){$('#modal').classList.remove('open');document.body.style.overflow='';}
+function setupModalTriggers(){
+  document.querySelectorAll('[data-modal]').forEach(n=>{
+    n.addEventListener('click',()=>openModal(n.getAttribute('data-modal'),parseInt(n.getAttribute('data-i'),10)));
+  });
+}
+
+/* Mobile menu */
+function toggleMenu(open){
+  $('#mobileMenu').classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+
+/* Scroll progress */
+function onScroll(){
+  const se=document.scrollingElement||document.documentElement;
+  const h=se.scrollHeight-se.clientHeight;
+  $('#progress').style.width=(h>0?(se.scrollTop/h*100):0)+'%';
+}
+
+/* ============================================================
+   Boot
+   ============================================================ */
+function boot(){
+  render();
+  $('#langBtn').addEventListener('click',()=>{LANG=LANG==='es'?'en':'es';render();});
+  $('#menuToggle').addEventListener('click',()=>toggleMenu(true));
+  $('#menuClose').addEventListener('click',()=>toggleMenu(false));
+  $('#mobileMenu').addEventListener('click',(e)=>{if(e.target.hasAttribute('data-close'))toggleMenu(false);});
+  $('#modalClose').addEventListener('click',closeModal);
+  $('#modal').addEventListener('click',(e)=>{if(e.target.id==='modal')closeModal();});
+  window.addEventListener('keydown',(e)=>{if(e.key==='Escape'){closeModal();toggleMenu(false);}});
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+</script>
+</body>
+</html>

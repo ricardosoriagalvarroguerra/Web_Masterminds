@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+masterminds-react/dist/
+*.tsbuildinfo
+
+# Local tooling
+.claude/
+audit-output/

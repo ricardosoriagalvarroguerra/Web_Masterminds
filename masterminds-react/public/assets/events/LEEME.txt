@@ -1,0 +1,3 @@
+Coloca aquí las fotos de los eventos (formato recomendado 3:2, p. ej. 1200x800).
+Luego, en src/data/content.ts, agrega el campo img a cada evento, por ejemplo:
+  { meta: "AMCHAM Bolivia", title: "AMCHAM Business Forum", img: "/assets/events/amcham.jpg" }
