@@ -1,0 +1,12 @@
+{
+  "name": "web-masterminds",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix masterminds-react ci && npm --prefix masterminds-react run build",
+    "start": "serve -s masterminds-react/dist -l ${PORT:-3000}"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
